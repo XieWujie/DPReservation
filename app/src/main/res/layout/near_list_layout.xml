@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="clinic" type="com.example.administrator.dpreservation.data.clinic.Clinic"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#ffffff"
+              android:layout_width="match_parent"
+              android:layout_height="100dp">
+
+    <TextView android:layout_width="match_parent"
+              android:text="@{clinic.name}"
+              android:gravity="center"
+              android:layout_height="100dp"/>
+
+</LinearLayout>
+
+</layout>

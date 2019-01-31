@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable name="position" type="com.example.administrator.dpreservation.data.Position"/>
+    </data>
+    <androidx.drawerlayout.widget.DrawerLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+                                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                android:layout_width="match_parent"
+                                                android:id="@+id/drawlayout"
+                                                android:layout_height="match_parent">
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/coordinatorLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true">
+                <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:background="#ffffff"
+                        app:layout_scrollFlags="snap |enterAlways"
+                        android:layout_height="wrap_content">
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:orientation="vertical"
+                                  android:layout_height="wrap_content">
+                        <TextView android:layout_width="match_parent"
+                                  android:gravity="center"
+                                  android:text="@{position.city}"
+                                  android:layout_height="?attr/actionBarSize"/>
+                        <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                                   android:id="@+id/type_rc"
+                                                                   android:layout_height="40dp">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                <com.amap.api.maps2d.MapView android:layout_width="match_parent"
+                                             android:id="@+id/mapView"
+                                             android:layout_height="match_parent">
+
+                </com.amap.api.maps2d.MapView>
+                <SlidingDrawer android:layout_width="match_parent"
+                               android:content="@id/near_rc_view"
+                               android:orientation="vertical"
+                               android:topOffset="100dp"
+                               android:handle="@id/handle"
+                               android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                               android:id="@+id/near_rc_view"
+                                                               app:layout_behavior="@string/bottom_sheet_behavior"
+                                                               android:layout_height="match_parent">
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <TextView android:layout_width="wrap_content"
+                              android:id="@+id/handle"
+                              android:text="拖动"
+                              android:gravity="center"
+                              android:layout_height="50dp"/>
+
+                </SlidingDrawer>
+            </RelativeLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <fragment android:layout_width="match_parent"
+                  android:id="@+id/me_fragment"
+                  android:layout_gravity="start"
+                  android:name="com.example.administrator.dpreservation.view.MeFragment"
+                  android:layout_height="match_parent"/>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

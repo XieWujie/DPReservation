@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+   <data>
+       <variable name="presenter" type="com.example.administrator.dpreservation.presenter.MePresenter"/>
+   </data>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/meItemBackground"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView android:layout_width="match_parent"
+              android:text="个人中心"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:background="@color/meItemBackground"
+              android:textColor="#000000"
+              android:gravity="center"
+              android:layout_height="50dp"/>
+    <View android:layout_width="match_parent"
+          android:background="@color/dividingLine"
+          android:layout_height="1dp"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:background="@color/meItemBackground"
+                    android:layout_height="55dp">
+        <ImageView android:layout_width="40dp"
+                   android:id="@+id/avatar"
+                   android:src="@drawable/ic_launcher_background"
+                   android:layout_height="40dp"/>
+        <TextView android:layout_width="wrap_content"
+                  android:gravity="center"
+                  android:text="用户账号"
+                  android:layout_marginLeft="3dp"
+                  android:layout_centerVertical="true"
+                  android:layout_toRightOf="@id/avatar"
+                  android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+          android:background="@color/dividingLine"
+          android:layout_height="2dp"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:background="@color/meItemBackground"
+                    android:onClick="@{presenter::clickOrder}"
+                    android:layout_height="50dp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_marginLeft="10dp"
+                  android:textColor="@color/meItem"
+                  android:text="订单"
+                  android:layout_height="wrap_content"/>
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="5dp"
+                   android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+          android:background="@color/dividingLine"
+          android:layout_height="1dp"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:background="@color/meItemBackground"
+                    android:onClick="@{presenter::clickWallet}"
+                    android:layout_height="50dp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_marginLeft="10dp"
+                  android:textColor="@color/meItem"
+                  android:text="钱包"
+                  android:layout_height="wrap_content"/>
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="5dp"
+                   android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+          android:background="@color/dividingLine"
+          android:layout_height="1dp"/>
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:background="@color/meItemBackground"
+                    android:onClick="@{presenter::clickSafety}"
+                    android:layout_height="50dp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_marginLeft="10dp"
+                  android:textColor="@color/meItem"
+                  android:text="安全"
+                  android:layout_height="wrap_content"/>
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="5dp"
+                   android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+          android:background="@color/dividingLine"
+          android:layout_height="1dp"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:background="@color/meItemBackground"
+                    android:onClick="@{presenter::clickCustomer}"
+                    android:layout_height="50dp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_marginLeft="10dp"
+                  android:textColor="@color/meItem"
+                  android:text="客服"
+                  android:layout_height="wrap_content"/>
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="5dp"
+                   android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+          android:background="@color/dividingLine"
+          android:layout_height="1dp"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:background="@color/meItemBackground"
+                    android:onClick="@{presenter::clickSetting}"
+                    android:layout_height="50dp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_marginLeft="10dp"
+                  android:textColor="@color/meItem"
+                  android:text="设置"
+                  android:layout_height="wrap_content"/>
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="5dp"
+                   android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                   android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+          android:background="@color/dividingLine"
+          android:layout_height="1dp"/>
+
+
+</LinearLayout>
+</layout>
