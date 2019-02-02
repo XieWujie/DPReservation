@@ -5,14 +5,23 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.administrator.dpreservation.data.clinic.Clinic
-import com.example.administrator.dpreservation.data.clinic.ClinicDao
+import com.example.administrator.dpreservation.data.doctor.Doctor
+import com.example.administrator.dpreservation.data.doctor.DoctorDao
+import com.example.administrator.dpreservation.data.message.Message
+import com.example.administrator.dpreservation.data.message.MessageDao
+import com.example.administrator.dpreservation.data.user.User
+import com.example.administrator.dpreservation.data.user.UserDao
 import com.example.administrator.dpreservation.utilities.DATABASE_NAME
 
-@Database(entities = [Clinic::class],version = 1,exportSchema = false)
+
+@Database(entities = [Doctor::class,User::class,Message::class],version = 2,exportSchema = false)
 abstract class AppDatabase:RoomDatabase(){
 
-    abstract fun getClinicDao():ClinicDao
+    abstract fun getClinicDao():DoctorDao
+
+    abstract fun getUserDao():UserDao
+
+    abstract fun getMessageDao():MessageDao
 
     companion object {
 
@@ -28,18 +37,8 @@ abstract class AppDatabase:RoomDatabase(){
                 .addCallback(object :RoomDatabase.Callback(){
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                       // initData(context)
                     }
                 }).build()
-        }
-
-        private fun initData(context: Context){
-            val list = ArrayList<Clinic>()
-            for (i in 0..30){
-                val clinic = Clinic("$i 诊所")
-                list.add(clinic)
-            }
-            getInstance(context).getClinicDao().addClinic(list)
         }
     }
 }

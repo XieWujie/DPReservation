@@ -4,7 +4,7 @@
        <variable name="presenter" type="com.example.administrator.dpreservation.presenter.MePresenter"/>
    </data>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.administrator.dpreservation.custom.DragLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:background="@color/meItemBackground"
               android:layout_width="match_parent"
@@ -26,12 +26,13 @@
                     android:layout_height="55dp">
         <ImageView android:layout_width="40dp"
                    android:id="@+id/avatar"
-                   android:src="@drawable/ic_launcher_background"
+                   imageSrc="@{presenter.avatar}"
                    android:layout_height="40dp"/>
         <TextView android:layout_width="wrap_content"
                   android:gravity="center"
-                  android:text="用户账号"
+                  android:text="@{presenter.acount}"
                   android:layout_marginLeft="3dp"
+                  android:onClick="@{presenter::login}"
                   android:layout_centerVertical="true"
                   android:layout_toRightOf="@id/avatar"
                   android:layout_height="wrap_content"/>
@@ -142,5 +143,5 @@
           android:layout_height="1dp"/>
 
 
-</LinearLayout>
+</com.example.administrator.dpreservation.custom.DragLinearLayout>
 </layout>

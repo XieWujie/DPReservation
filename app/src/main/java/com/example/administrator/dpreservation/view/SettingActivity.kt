@@ -17,6 +17,7 @@ class SettingActivity : AppCompatActivity(){
         setTitle("设置")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp)
     }
 
 

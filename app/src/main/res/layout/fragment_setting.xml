@@ -3,7 +3,7 @@
     <data>
         <variable name="presenter" type="com.example.administrator.dpreservation.presenter.SettingPresenter"/>
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.administrator.dpreservation.custom.DragLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -136,8 +136,9 @@
     <Button android:layout_width="match_parent"
             android:textSize="16sp"
             android:text="退出登陆"
+            android:onClick="@{presenter::logout}"
             android:gravity="center"
             android:layout_marginTop="10dp"
             android:layout_height="60dp"/>
-</LinearLayout>
+</com.example.administrator.dpreservation.custom.DragLinearLayout>
 </layout>

@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import android.widget.TextView
+import com.example.administrator.dpreservation.view.LoginActivity
 import com.example.administrator.dpreservation.view.OrderActivity
 import com.example.administrator.dpreservation.view.SettingActivity
 
-class MePresenter{
+class MePresenter(var avatar:String? = null ,var acount:String = "登陆"){
 
     fun clickOrder(view:View){
         toActivity<OrderActivity>(view.context)
@@ -15,6 +17,12 @@ class MePresenter{
 
     fun clickWallet(view: View){
 
+    }
+
+    fun login(view: View){
+        if (acount == "登陆"){
+            toActivity<LoginActivity>(view.context)
+        }
     }
 
     fun clickSafety(view: View){

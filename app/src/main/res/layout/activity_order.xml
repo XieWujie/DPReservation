@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +8,9 @@
         android:orientation="vertical"
         android:layout_height="match_parent"
         tools:context=".view.OrderActivity">
-    <androidx.appcompat.widget.Toolbar style="@style/toolbar_style" android:id="@+id/toolbar"></androidx.appcompat.widget.Toolbar>
+    <androidx.appcompat.widget.Toolbar style="@style/toolbar_style" android:id="@+id/toolbar">
+
+    </androidx.appcompat.widget.Toolbar>
         <RelativeLayout android:layout_width="match_parent"
                         android:background="@color/meItemBackground"
                         android:layout_height="50dp">
@@ -47,3 +50,4 @@
                    android:layout_height="wrap_content"/>
     </RelativeLayout>
 </LinearLayout>
+</layout>

@@ -1,5 +1,7 @@
 package com.example.administrator.dpreservation.data
 
+import java.io.Serializable
+
 data class Position(
     val country:String,
     val province:String,
@@ -8,4 +10,4 @@ data class Position(
     val streetNumber:String,
     val latitude:Double,
     val longitude:Double
-)
+):Serializable

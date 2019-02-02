@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-
+        <variable name="presenter" type="com.example.administrator.dpreservation.presenter.AcountAndSafetyPresenter"/>
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.administrator.dpreservation.custom.DragLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <RelativeLayout  style="@style/me_item_style">
+    <RelativeLayout   android:onClick="@{presenter::resetPassword}"
+
+                      style="@style/me_item_style">
         <TextView android:layout_width="wrap_content"
                   android:textColor="@color/meText"
                   android:layout_marginLeft="10dp"
@@ -130,5 +132,5 @@
     <View android:layout_width="match_parent"
           android:background="@color/dividingLine"
           android:layout_height="1dp"/>
-</LinearLayout>
+</com.example.administrator.dpreservation.custom.DragLinearLayout>
 </layout>

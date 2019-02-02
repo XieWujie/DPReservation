@@ -10,24 +10,35 @@ import androidx.fragment.app.Fragment
 import com.example.administrator.dpreservation.databinding.FragmentStartBinding
 import android.content.pm.PackageManager
 import android.os.Handler
+import android.os.UserManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.administrator.dpreservation.R
+import com.example.administrator.dpreservation.core.MessageManage
+import com.example.administrator.dpreservation.core.UserManage
+import com.example.administrator.dpreservation.utilities.ViewModelFactory
+import com.example.administrator.dpreservation.viewmodel.UserModel
 import com.google.android.material.snackbar.Snackbar
 
 
 class StartFragment:Fragment(){
 
-    private lateinit var binging :FragmentStartBinding
+    private lateinit var binding :FragmentStartBinding
     private lateinit var navController: NavController
+    private lateinit var model:UserModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binging = FragmentStartBinding.inflate(LayoutInflater.from(context),null,false)
-        return binging.root
+        binding = FragmentStartBinding.inflate(LayoutInflater.from(context),null,false)
+        binding.setLifecycleOwner(this)
+        val factory = ViewModelFactory.getUserModelFactory(requireContext())
+        model = ViewModelProviders.of(this,factory)[UserModel::class.java]
+        return binding.root
     }
 
     override fun onResume() {
@@ -64,23 +75,28 @@ class StartFragment:Fragment(){
                 ), 1
             )
         } else {
-            val run = Runnable {
-                toMapFragment()
-            }
-            Handler().postDelayed(run,1000)
+            toNext()
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            toMapFragment()
+            toNext()
         } else {
-            Snackbar.make(binging.root, "拒绝权限将不能正常使用该功能", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, "拒绝权限将不能正常使用该功能", Snackbar.LENGTH_LONG).show()
         }
     }
 
-    private fun toMapFragment(){
-       val intent = Intent(requireContext(),MainActivity::class.java)
+    private fun toNext(){
+        model.lastUser?.observe(this, Observer {
+            UserManage.user = it
+            MessageManage.init(requireContext(),it)
+            toMainActivity()
+        })?:toMainActivity()
+    }
+
+    private fun toMainActivity(){
+        val intent = Intent(requireContext(),MainActivity::class.java)
         startActivity(intent)
     }
 }

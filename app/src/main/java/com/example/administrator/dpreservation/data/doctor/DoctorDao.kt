@@ -1,4 +1,4 @@
-package com.example.administrator.dpreservation.data.clinic
+package com.example.administrator.dpreservation.data.doctor
 
 import androidx.paging.DataSource
 import androidx.room.Dao
@@ -8,11 +8,11 @@ import androidx.room.Query
 
 
 @Dao
-interface ClinicDao{
+interface DoctorDao{
 
-    @Query("SELECT * FROM clinic")
-    fun getNearCinic():DataSource.Factory<Int,Clinic>
+    @Query("SELECT * FROM doctor")
+    fun getNearDoctor():DataSource.Factory<Int,Doctor>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addClinic(list:List<Clinic>)
+    fun addClinic(list:List<Doctor>)
 }

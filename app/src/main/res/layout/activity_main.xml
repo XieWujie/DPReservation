@@ -23,7 +23,7 @@
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:background="#ffffff"
-                        app:layout_scrollFlags="snap |enterAlways"
+                        app:layout_scrollFlags="snap |enterAlways |scroll"
                         android:layout_height="wrap_content">
                     <LinearLayout android:layout_width="match_parent"
                                   android:orientation="vertical"
@@ -41,7 +41,8 @@
 
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
-            <RelativeLayout android:layout_width="match_parent"
+            <FrameLayout android:layout_width="match_parent"
+                         android:fitsSystemWindows="true"
                             android:layout_height="match_parent">
 
 
@@ -50,26 +51,21 @@
                                              android:layout_height="match_parent">
 
                 </com.amap.api.maps2d.MapView>
-                <SlidingDrawer android:layout_width="match_parent"
-                               android:content="@id/near_rc_view"
-                               android:orientation="vertical"
-                               android:topOffset="100dp"
-                               android:handle="@id/handle"
-                               android:layout_height="match_parent">
 
+                <com.example.administrator.dpreservation.custom.scrolllayout.ScrollLayout android:layout_width="match_parent"
+                                                                                          android:layout_height="match_parent"
+                                                                                          app:maxOffset="250dp"
+                                                                                          app:state="open"
+                                                                                          app:allowHorizontalScroll="false" app:exitOffset="0dp">                         app:isSupportExit="true" app:maxOffset="260dp" app:minOffset="50dp" app:state="open">
                     <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                                                android:id="@+id/near_rc_view"
-                                                               app:layout_behavior="@string/bottom_sheet_behavior"
+                                                               android:layout_centerInParent="true"
+                                                               app:layout_behavior="@string/appbar_scrolling_view_behavior"
                                                                android:layout_height="match_parent">
                     </androidx.recyclerview.widget.RecyclerView>
-                    <TextView android:layout_width="wrap_content"
-                              android:id="@+id/handle"
-                              android:text="拖动"
-                              android:gravity="center"
-                              android:layout_height="50dp"/>
+                </com.example.administrator.dpreservation.custom.scrolllayout.ScrollLayout>
 
-                </SlidingDrawer>
-            </RelativeLayout>
+            </FrameLayout>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <fragment android:layout_width="match_parent"
