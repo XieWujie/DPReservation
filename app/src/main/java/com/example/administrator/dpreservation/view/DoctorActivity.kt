@@ -22,14 +22,6 @@ class DoctorActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         navController = findNavController(R.id.doc_nav)
-        val doctor = intent.getBundleExtra("doctor")
-        navController.addOnNavigatedListener { controller, destination ->
-            when(destination.id) {
-               R.id.doctorDetailFragment-> if (doctor is Bundle) {
-                    destination.setDefaultArguments(doctor)
-                }
-            }
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

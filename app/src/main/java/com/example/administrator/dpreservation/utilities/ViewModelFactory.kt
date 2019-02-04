@@ -4,9 +4,11 @@ import android.content.Context
 import com.example.administrator.dpreservation.data.AppDatabase
 import com.example.administrator.dpreservation.data.doctor.DoctorRespository
 import com.example.administrator.dpreservation.data.message.MessageRepository
+import com.example.administrator.dpreservation.data.order.OrderRepository
 import com.example.administrator.dpreservation.data.user.UserRepository
 import com.example.administrator.dpreservation.viewmodel.ClinicFactory
 import com.example.administrator.dpreservation.viewmodel.MessageModelFactory
+import com.example.administrator.dpreservation.viewmodel.OrderModelFactory
 import com.example.administrator.dpreservation.viewmodel.UserModelFactory
 
 object ViewModelFactory{
@@ -21,5 +23,8 @@ object ViewModelFactory{
 
     fun getMessageModelFactory(context: Context) =
         MessageModelFactory(MessageRepository.getInstance(getDatabase(context).getMessageDao()))
+
+    fun getOrderModelFactory(context: Context) =
+            OrderModelFactory(OrderRepository.getInstance(getDatabase(context).getOrder()))
 
 }

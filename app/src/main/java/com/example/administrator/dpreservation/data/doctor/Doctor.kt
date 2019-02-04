@@ -9,6 +9,7 @@ import java.io.Serializable
 @Entity
 data class Doctor(
     @PrimaryKey
+     val id:String,
     val name:String,
     val avatar:String?,
     @Embedded val  position: Position,

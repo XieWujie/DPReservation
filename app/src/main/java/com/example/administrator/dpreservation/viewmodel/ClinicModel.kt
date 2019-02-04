@@ -20,12 +20,12 @@ class ClinicModel internal constructor(private val respository: DoctorRespositor
      fun initData(){
          val position = Position("1","1","1","1","1",20.0,110.0)
          val list = ArrayList<Doctor>()
-         val doctor = Doctor("医生1",null,position.copy(latitude = 20.toDouble()),
+         val doctor = Doctor("id","医生1",null,position.copy(latitude = 20.toDouble()),
              "1年","大学生",true,true,
              "9-17点","重庆邮电大学","重庆市南岸区崇文路2号",
              "555456001",8,"换牙 洗牙",4.5f)
          for (i in 0..30){
-             list.add(doctor.copy(name = "医生$i",position = position.copy(latitude = 20.0+i)))
+             list.add(doctor.copy(id = "id$i", name = "医生$i",position = position.copy(latitude = 20.0+i)))
          }
         respository.addClick(list)
     }

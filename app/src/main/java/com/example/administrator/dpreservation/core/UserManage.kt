@@ -8,6 +8,7 @@ import com.avos.avoscloud.im.v2.AVIMException
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback
 import com.example.administrator.dpreservation.data.AppDatabase
 import com.example.administrator.dpreservation.data.Position
+import com.example.administrator.dpreservation.data.doctor.Doctor
 import com.example.administrator.dpreservation.data.user.User
 import com.example.administrator.dpreservation.data.user.UserRepository
 import com.example.administrator.dpreservation.utilities.AVATAR

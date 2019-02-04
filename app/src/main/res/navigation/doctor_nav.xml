@@ -5,5 +5,11 @@
 
     <fragment android:id="@+id/doctorDetailFragment"
               android:name="com.example.administrator.dpreservation.view.DoctorDetailFragment"
-              android:label="DoctorDetailFragment"/>
+              android:label="DoctorDetailFragment">
+        <action android:id="@+id/action_doctorDetailFragment_to_reservationFragment"
+                app:destination="@id/reservationFragment"/>
+    </fragment>
+    <fragment android:id="@+id/reservationFragment"
+              android:name="com.example.administrator.dpreservation.view.ReservationFragment"
+              android:label="ReservationFragment"/>
 </navigation>
