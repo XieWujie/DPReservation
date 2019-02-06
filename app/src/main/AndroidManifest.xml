@@ -90,6 +90,10 @@
         </activity>
         <activity android:name=".view.DoctorActivity">
         </activity>
+        <activity android:name=".view.OrderDetailActivity">
+        </activity>
+        <activity android:name=".view.EvaluateActivity">
+        </activity>
     </application>
 
 </manifest>

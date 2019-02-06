@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.administrator.dpreservation.data.doctor.Doctor
 import com.example.administrator.dpreservation.data.doctor.DoctorDao
+import com.example.administrator.dpreservation.data.evaluation.Evaluation
+import com.example.administrator.dpreservation.data.evaluation.EvaluationDao
 import com.example.administrator.dpreservation.data.message.Message
 import com.example.administrator.dpreservation.data.message.MessageDao
 import com.example.administrator.dpreservation.data.order.Order
@@ -14,9 +16,10 @@ import com.example.administrator.dpreservation.data.order.OrderDao
 import com.example.administrator.dpreservation.data.user.User
 import com.example.administrator.dpreservation.data.user.UserDao
 import com.example.administrator.dpreservation.utilities.DATABASE_NAME
+import com.google.protobuf.EnumValue
 
 
-@Database(entities = [Doctor::class,User::class,Message::class,Order::class],version = 2,exportSchema = false)
+@Database(entities = [Doctor::class,User::class,Message::class,Order::class,Evaluation::class],version = 3,exportSchema = false)
 abstract class AppDatabase:RoomDatabase(){
 
     abstract fun getClinicDao():DoctorDao
@@ -26,6 +29,8 @@ abstract class AppDatabase:RoomDatabase(){
     abstract fun getMessageDao():MessageDao
 
     abstract fun getOrder():OrderDao
+
+    abstract fun getEvaluationDao():EvaluationDao
 
     companion object {
 

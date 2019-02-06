@@ -5,16 +5,19 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.administrator.dpreservation.data.Position
 import com.example.administrator.dpreservation.data.doctor.Doctor
-import com.example.administrator.dpreservation.data.doctor.DoctorRespository
+import com.example.administrator.dpreservation.data.doctor.DoctorRepository
 
-class ClinicModel internal constructor(private val respository: DoctorRespository):ViewModel(){
+class DoctorModel internal constructor(private val repository: DoctorRepository):ViewModel(){
 
-    fun getNearClinic() = LivePagedListBuilder<Int,Doctor>(respository.getNearDoctor(), PagedList.Config.Builder()
+    private val config = PagedList.Config.Builder()
         .setPageSize(20)
         .setEnablePlaceholders(false)
         .setInitialLoadSizeHint(40)
-        .build())
         .build()
+
+    fun getNearClinic() = LivePagedListBuilder<Int,Doctor>(repository.getNearDoctor(),config).build()
+
+    val attention = LivePagedListBuilder<Int,Doctor>(repository.getAttention(),config).build()
 
 
      fun initData(){
@@ -23,10 +26,10 @@ class ClinicModel internal constructor(private val respository: DoctorRespositor
          val doctor = Doctor("id","医生1",null,position.copy(latitude = 20.toDouble()),
              "1年","大学生",true,true,
              "9-17点","重庆邮电大学","重庆市南岸区崇文路2号",
-             "555456001",8,"换牙 洗牙",4.5f)
+             "555456001",8,"换牙 洗牙",4.5f,true)
          for (i in 0..30){
              list.add(doctor.copy(id = "id$i", name = "医生$i",position = position.copy(latitude = 20.0+i)))
          }
-        respository.addClick(list)
+        repository.addDoctor(list)
     }
 }

@@ -1,10 +1,7 @@
 package com.example.administrator.dpreservation.view
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -27,11 +24,8 @@ import com.example.administrator.dpreservation.adapter.NearAdapter
 import com.example.administrator.dpreservation.adapter.TypeAdapter
 import com.example.administrator.dpreservation.data.Position
 import com.example.administrator.dpreservation.databinding.FragmentMapBinding
-import com.example.administrator.dpreservation.utilities.DialogUtil
-import com.example.administrator.dpreservation.utilities.Util
 import com.example.administrator.dpreservation.utilities.ViewModelFactory
-import com.example.administrator.dpreservation.viewmodel.ClinicModel
-import com.google.android.material.snackbar.Snackbar
+import com.example.administrator.dpreservation.viewmodel.DoctorModel
 
 class MapFragment : Fragment() , LocationSource,AMapLocationListener{
 
@@ -43,7 +37,7 @@ class MapFragment : Fragment() , LocationSource,AMapLocationListener{
     private var isFirst = true
     private var amap:AMap? = null
     private var markerMe:Marker? = null
-    private lateinit var model:ClinicModel
+    private lateinit var model:DoctorModel
     private val nearAdapter = NearAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,7 +46,7 @@ class MapFragment : Fragment() , LocationSource,AMapLocationListener{
         init()
         binding.mapView.onCreate(savedInstanceState)
         val factory = ViewModelFactory.getClinicModelFactory(requireContext())
-        model = ViewModelProviders.of(this,factory).get(ClinicModel::class.java)
+        model = ViewModelProviders.of(this,factory).get(DoctorModel::class.java)
         model.initData()
        // DialogUtil.showSheetDialog(requireContext(),nearAdapter)
         model.getNearClinic().observe(this, Observer {

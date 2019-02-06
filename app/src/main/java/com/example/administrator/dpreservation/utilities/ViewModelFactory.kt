@@ -2,21 +2,19 @@ package com.example.administrator.dpreservation.utilities
 
 import android.content.Context
 import com.example.administrator.dpreservation.data.AppDatabase
-import com.example.administrator.dpreservation.data.doctor.DoctorRespository
+import com.example.administrator.dpreservation.data.doctor.DoctorRepository
+import com.example.administrator.dpreservation.data.evaluation.EvaluationRepository
 import com.example.administrator.dpreservation.data.message.MessageRepository
 import com.example.administrator.dpreservation.data.order.OrderRepository
 import com.example.administrator.dpreservation.data.user.UserRepository
-import com.example.administrator.dpreservation.viewmodel.ClinicFactory
-import com.example.administrator.dpreservation.viewmodel.MessageModelFactory
-import com.example.administrator.dpreservation.viewmodel.OrderModelFactory
-import com.example.administrator.dpreservation.viewmodel.UserModelFactory
+import com.example.administrator.dpreservation.viewmodel.*
 
 object ViewModelFactory{
 
     private fun getDatabase(context: Context) = AppDatabase.getInstance(context)
 
     fun getClinicModelFactory(context: Context) =
-            ClinicFactory(DoctorRespository.getInstance(getDatabase(context).getClinicDao()))
+            DoctorFactory(DoctorRepository.getInstance(getDatabase(context).getClinicDao()))
 
     fun getUserModelFactory(context: Context) =
             UserModelFactory(UserRepository.getInstance(getDatabase(context).getUserDao()))
@@ -26,5 +24,8 @@ object ViewModelFactory{
 
     fun getOrderModelFactory(context: Context) =
             OrderModelFactory(OrderRepository.getInstance(getDatabase(context).getOrder()))
+
+    fun getEvaluationFactory(context: Context) =
+            EvaluationFactory(EvaluationRepository.getInstance(getDatabase(context).getEvaluationDao()))
 
 }

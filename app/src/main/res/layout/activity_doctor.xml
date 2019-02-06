@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,8 +13,31 @@
     <fragment
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_above="@+id/bottom"
             android:layout_height="match_parent" app:navGraph="@navigation/doctor_nav" app:defaultNavHost="true"
             android:id="@+id/doc_nav"/>
+ <LinearLayout android:layout_width="match_parent"
+               android:layout_alignParentBottom="true"
+               android:orientation="horizontal"
+               android:id="@+id/bottom"
+               android:layout_height="60dp">
+     <TextView android:layout_width="0dp"
+               android:layout_weight="1"
+               android:text="添加关注"
+               android:id="@+id/attention"
+               android:textSize="16sp"
+               android:gravity="center"
+               android:textColor="@android:color/holo_red_light"
+               android:layout_height="match_parent"/>
+     <TextView android:layout_width="0dp"
+               android:layout_weight="1"
+               android:gravity="center"
+               android:id="@+id/send_evaluation"
+               android:text="预 约"
+               android:textSize="16sp"
+               android:layout_height="match_parent"/>
+ </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
 </layout>

@@ -36,6 +36,7 @@ const val SEND_SUCCEED = 1
 const val SEND_FAIL = 2
 
 const val ALL = 1
-const val NOT_START = 2
-const val NOT_EVALUATION = 3
+const val NOT_GENERATED = 2
+const val NOT_START = 3
 const val COMPLETE = 4
+const val NOT_EVALUATION = 5

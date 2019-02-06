@@ -16,6 +16,6 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" app:navGraph="@navigation/message_nav" app:defaultNavHost="true"
-            android:id="@+id/fragment3"/>
+            android:id="@+id/m_nav"/>
 </LinearLayout>
 </layout>

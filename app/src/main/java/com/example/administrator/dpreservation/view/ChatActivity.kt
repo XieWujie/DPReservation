@@ -32,7 +32,11 @@ class ChatActivity : AppCompatActivity(){
         val conversationId = intent.getStringExtra(CONVERSATION_ID)
         val conversationName = intent.getStringExtra(CONVERSATION__NAME)
         val avatar = intent.getStringExtra(AVATAR)
-        MessageManage.finConversationById(conversationId) { conversation ->
+        MessageManage.findConversation(conversationId) { conversation ->
+            if (conversation == null){
+                Util.log(binding.root,"获取会话失败")
+                return@findConversation
+            }
             Util.findConversationTitle(conversation, conversationName) {
                 binding.centerText.text = it
                 setTitle("消息")

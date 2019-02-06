@@ -6,4 +6,7 @@
     <fragment android:id="@+id/messageListFragment"
               android:name="com.example.administrator.dpreservation.view.MessageListFragment"
               android:label="MessageListFragment"/>
+    <fragment android:id="@+id/attentionFragment"
+              android:name="com.example.administrator.dpreservation.view.AttentionFragment"
+              android:label="AttentionFragment"/>
 </navigation>

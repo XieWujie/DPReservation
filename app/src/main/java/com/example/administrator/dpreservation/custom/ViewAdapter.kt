@@ -35,6 +35,15 @@ class ViewAdapter{
         }
 
         @JvmStatic
+        @BindingAdapter("orderTime")
+        fun setOrderTime(view: TextView,timeStamp: Long){
+            val d = Date(timeStamp)
+            val f = SimpleDateFormat("MM月dd日 HH:mm")
+            val s = f.format(d)
+            view.text = s
+        }
+
+        @JvmStatic
         @BindingAdapter("distance")
         fun setDistance(view: TextView,position: Position){
             val o = UserManage.position

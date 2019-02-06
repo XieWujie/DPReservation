@@ -27,7 +27,7 @@ import com.example.administrator.dpreservation.data.Position
 import com.example.administrator.dpreservation.data.doctor.Doctor
 import com.example.administrator.dpreservation.databinding.ActivityMainBinding
 import com.example.administrator.dpreservation.utilities.ViewModelFactory
-import com.example.administrator.dpreservation.viewmodel.ClinicModel
+import com.example.administrator.dpreservation.viewmodel.DoctorModel
 
 class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener {
 
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener 
     private var isFirst = true
     private var amap: AMap? = null
     private var markerMe: Marker? = null
-    private lateinit var model: ClinicModel
+    private lateinit var model: DoctorModel
     private val nearAdapter = NearAdapter()
     private val doctorMarkerMap = HashMap<Doctor,Marker>()
 
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener 
         binding.mapView.onCreate(savedInstanceState)
         init()
         val factory = ViewModelFactory.getClinicModelFactory(this)
-        model = ViewModelProviders.of(this,factory).get(ClinicModel::class.java)
+        model = ViewModelProviders.of(this,factory).get(DoctorModel::class.java)
         model.initData()
         model.getNearClinic().observe(this, Observer {
             nearAdapter.submitList(it)

@@ -10,4 +10,9 @@ data class Position(
     val streetNumber:String,
     val latitude:Double,
     val longitude:Double
-):Serializable
+):Serializable{
+
+    override fun toString(): String {
+        return "$province$city$district$streetNumber"
+    }
+}

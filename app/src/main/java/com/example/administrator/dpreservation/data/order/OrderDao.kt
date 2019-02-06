@@ -1,10 +1,7 @@
 package com.example.administrator.dpreservation.data.order
 
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface OrderDao{
@@ -23,5 +20,8 @@ interface OrderDao{
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list:List<Order>)
+
+    @Delete
+    fun delete(order: Order)
 
 }

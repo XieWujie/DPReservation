@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="doctor" type="com.example.administrator.dpreservation.data.doctor.Doctor"/>
     </data>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -366,22 +367,39 @@
                         android:layout_marginLeft="20dp"/>
 
             </LinearLayout>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_marginTop="5dp"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="wrap_content"
+                          android:text="评价"
+                          android:layout_margin="5dp"
+                          android:layout_marginTop="10dp"
+                          android:layout_marginRight="5dp"
+                          android:layout_marginLeft="5dp"
+                          android:layout_height="wrap_content"/>
+                <LinearLayout android:layout_width="wrap_content"
+                              android:orientation="horizontal"
+                              android:visibility="gone"
+                              android:layout_alignParentRight="true"
+                              android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:text="查看全部"
+                              android:layout_height="wrap_content"/>
+                    <ImageView android:layout_width="wrap_content"
+                               android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                               android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                       android:id="@+id/recyclerview"
+                                                       android:layout_marginLeft="5dp"
+                                                       android:layout_marginRight="5dp"
+                                                       android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </com.example.administrator.dpreservation.custom.DragLinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:id="@+id/floatbar"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="30dp"
-                android:src="@drawable/details_reserve"
-                android:scaleType="fitCenter"
-                android:backgroundTint="#ffadad"
-                app:elevation="5dp"
-                app:fabSize="mini"
-                app:rippleColor="#ffe4bf"/>
     </RelativeLayout>
+    </ScrollView>
 </layout>

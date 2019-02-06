@@ -9,8 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.adapter.FragmentViewPagerAdapter
+import com.example.administrator.dpreservation.core.OrderManage
 import com.example.administrator.dpreservation.core.UserManage
 import com.example.administrator.dpreservation.databinding.ActivityOrderBinding
+import com.example.administrator.dpreservation.utilities.ALL
+import com.example.administrator.dpreservation.utilities.NOT_EVALUATION
 import com.example.administrator.dpreservation.utilities.Util
 import java.util.*
 import kotlin.collections.ArrayList
@@ -36,6 +39,11 @@ class OrderActivity : AppCompatActivity(),ViewPager.OnPageChangeListener{
            Util.log(window.decorView,"请先登陆")
             return
         }
+        OrderManage.requestPatientOrder(this,ownerId){
+            if (it != null){
+                Util.log(window.decorView,"网络请求订单失败")
+            }
+        }
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
@@ -43,12 +51,12 @@ class OrderActivity : AppCompatActivity(),ViewPager.OnPageChangeListener{
         layoutParams = binding.tab.layoutParams as LinearLayout.LayoutParams
         val tabWidth = layoutParams.width
         displayWidth = windowManager.defaultDisplay.width
-        width = displayWidth/4
+        width = displayWidth/5
         leftMargin = width/2 - tabWidth/2
         layoutParams.leftMargin = leftMargin
         binding.viewPager.setOnPageChangeListener(this)
         val list = ArrayList<OrderListFragment>()
-        for (i in 1..5){
+        for (i in ALL until  NOT_EVALUATION+1){
             val fragment = OrderListFragment()
             list.add(fragment)
             val bundle = Bundle()

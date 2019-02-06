@@ -23,6 +23,7 @@ data class Doctor(
     val phone:String,
     val historyOrderCount:Int,
     val goodAt:String,
-    val praise:Float
+    val praise:Float,
+    val isAttention:Boolean
 
 ):Serializable

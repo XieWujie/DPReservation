@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.administrator.dpreservation.R
+import com.example.administrator.dpreservation.core.DoctorManager
 import com.example.administrator.dpreservation.core.MessageManage
 import com.example.administrator.dpreservation.core.UserManage
 import com.example.administrator.dpreservation.utilities.ViewModelFactory
@@ -91,6 +92,9 @@ class StartFragment:Fragment(){
         model.lastUser?.observe(this, Observer {
             UserManage.user = it
             MessageManage.init(requireContext(),it)
+            DoctorManager.requestDoctor(requireContext()){
+
+            }
             toMainActivity()
         })?:toMainActivity()
     }

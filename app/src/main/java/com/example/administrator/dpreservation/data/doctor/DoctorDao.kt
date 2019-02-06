@@ -14,5 +14,11 @@ interface DoctorDao{
     fun getNearDoctor():DataSource.Factory<Int,Doctor>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addClinic(list:List<Doctor>)
+    fun addDoctor(list:List<Doctor>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addDoctor(doctor: Doctor)
+
+    @Query("SELECT * FROM doctor WHERE isAttention = :isAttention")
+    fun getAttention(isAttention:Boolean = true):DataSource.Factory<Int,Doctor>
 }

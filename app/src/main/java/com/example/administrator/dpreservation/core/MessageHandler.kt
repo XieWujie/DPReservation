@@ -28,7 +28,7 @@ class MessageHandler: AVIMMessageHandler(){
     private fun cacheMessage(m:AVIMMessage,c:AVIMConversation,content:String,type:Int,voiceTime:Double = 0.0){
         val map = c["Info"] as Map<String,String>
         val id = m.from
-        MessageManage.findContactMessageById(id){ avatar,name->
+        MessageManage.findMessageById(id){ avatar, name->
             val message = Message(m.messageId,c.conversationId,name,content,name,id,
                 type,voiceTime, c.unreadMessagesCount,m.timestamp,UserManage.user?.userId!!, SENDING,avatar)
             MessageManage.cacheMessage(message,false)

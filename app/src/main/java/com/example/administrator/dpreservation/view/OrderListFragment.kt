@@ -25,9 +25,6 @@ class OrderListFragment:Fragment(){
     private var ownerId:String? = null
     private var type:Int = -1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentOrderListBinding.inflate(inflater,container,false)
         binding.setLifecycleOwner(this)
@@ -48,7 +45,7 @@ class OrderListFragment:Fragment(){
             ALL->model.getOwnerOrder(ownerId!!).observe(this, Observer {
                 adapter.submitList(it)
             })
-            NOT_START, NOT_EVALUATION, COMPLETE->model.getTypeOrder(ownerId!!,type).observe(this, Observer {
+            NOT_START, NOT_EVALUATION, COMPLETE, NOT_GENERATED->model.getTypeOrder(ownerId!!,type).observe(this, Observer {
                 adapter.submitList(it)
             })
         }

@@ -14,6 +14,7 @@ import com.example.administrator.dpreservation.data.user.UserRepository
 import com.example.administrator.dpreservation.utilities.AVATAR
 import com.example.administrator.dpreservation.utilities.Util
 import java.util.*
+import kotlin.collections.ArrayList
 
 object UserManage{
 
@@ -21,6 +22,7 @@ object UserManage{
     var client:AVIMClient? = null
     var user:User? = null
     var position:Position? = null
+    val atttention = ArrayList<String>()
 
     fun login(view: View, username:String,password:String,loginCallback:(user:User?)->Unit){
         initRespository(view.context)
@@ -33,6 +35,9 @@ object UserManage{
                             if (e==null){
                                 val avatar = avUser.getString(AVATAR)
                                 val mailBox = avUser.getString("email")
+                                val a = avUser.getList("attention").map { it as String }
+                                atttention.clear()
+                                atttention.addAll(a)
                                  val u = User(avUser.objectId,username,password, Date().time,mailBox,false,avatar)
                                 respository?.addUser(u)
                                 user = u
@@ -65,6 +70,7 @@ object UserManage{
                 if (e!=null){
                     callback(null)
                     Util.log(view,e.message)
+
                 }else{
                     val id = user.objectId
                     val  c = AVIMClient.getInstance(id)
@@ -122,5 +128,36 @@ object UserManage{
         user = null
         client?.close(null)
         client = null
+    }
+
+    fun addAttention(context: Context,doctorId:String,addCallback:(e:Exception?)->Unit){
+        initRespository(context)
+        val o = AVObject.createWithoutData("_User", user!!.userId)
+        o.add("attention",doctorId)
+        o.saveInBackground(object :SaveCallback(){
+            override fun done(e: AVException?) {
+                if (e == null){
+                    atttention.add(doctorId)
+                }
+                addCallback(e)
+            }
+        })
+    }
+
+    fun removeAttention(context: Context,doctorId: String,removeCallback: (e: Exception?) -> Unit){
+        initRespository(context)
+        val o = AVObject.createWithoutData("_User", user!!.userId)
+        if (atttention == null){
+            removeCallback(null)
+            return
+        }
+        atttention.remove(doctorId)
+        o.remove("attention")
+        o.addAllUnique("attention", atttention)
+        o.saveInBackground(object :SaveCallback(){
+            override fun done(e: AVException?) {
+                removeCallback(e)
+            }
+        })
     }
 }

@@ -1,15 +1,11 @@
 package com.example.administrator.dpreservation.core
 
 import android.content.Context
-import android.util.Log
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.AVObject
 import com.avos.avoscloud.GetCallback
 import com.avos.avoscloud.im.v2.*
-import com.avos.avoscloud.im.v2.callback.AVIMClientCallback
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback
-import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback
-import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback
+import com.avos.avoscloud.im.v2.callback.*
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage
 import com.avos.avoscloud.im.v2.messages.AVIMVideoMessage
@@ -54,13 +50,12 @@ object MessageManage{
     }
 
     private fun getConversation(id: String, callback: (conversation: AVIMConversation) -> Unit) {
-        getClient { client ->
             if (conversationMap.containsKey(id)) {
                 callback(conversationMap[id]!!)
             } else {
                 val conversation = client?.getConversation(id)
                 if (conversation == null) {
-                    return@getClient
+                    return
                 }
                 if (conversation.isShouldFetch) {
                     conversation?.fetchInfoInBackground(object : AVIMConversationCallback() {
@@ -78,7 +73,6 @@ object MessageManage{
                     callback(conversation)
                 }
             }
-        }
         }
 
     private fun sendTextMessage(conversation: AVIMConversation, message: Message, exeption: (e: Exception?) -> Unit) {
@@ -101,8 +95,46 @@ object MessageManage{
             })
         }
 
-    fun finConversationById(conversationId:String,findCallback:(conversation:AVIMConversation)->Unit){
-        getConversation(conversationId,findCallback)
+    fun findConversation(id:String,callback: (conversation: AVIMConversation?) -> Unit){
+        getClient { client ->
+            if (client == null){
+                callback(null)
+                return@getClient
+            }
+            if (conversationMap.containsKey(id) || client.getConversation(id) == null) {
+                callback(conversationMap[id]!!)
+            } else if (client.getConversation(id)!=null){
+                getConversation(id,callback)
+            }else{
+                createConversation(id,callback)
+            }
+        }
+    }
+
+    private fun createConversation(id:String,callback: (conversation: AVIMConversation?) -> Unit){
+        client?.createConversation(listOf(id), "ni", null, false, true, object : AVIMConversationCreatedCallback() {
+            override fun done(c: AVIMConversation?, e: AVIMException?) {
+                if (e == null && c != null) {
+                    conversationMap[id] = c!!
+                    if (c["Info"] == null) {
+                        val map = mapOf(
+                            getKey(owner!!.userId, USER_ID) to id,
+                            getKey(id, USER_ID) to owner?.userId
+                        )
+                        c["Info"] = map
+                        c.updateInfoInBackground(object : AVIMConversationCallback() {
+                            override fun done(p0: AVIMException?) {
+                                if (p0 == null) {
+                                    callback(c)
+                                }
+                            }
+                        })
+                    } else {
+                        callback(c)
+                    }
+                }
+            }
+        })
     }
 
 
@@ -188,6 +220,7 @@ object MessageManage{
             client!!.open(object :AVIMClientCallback(){
 
                 override fun done(c: AVIMClient?, e: AVIMException?) {
+                    client = c
                    getCallback(c)
                 }
             })
@@ -246,7 +279,7 @@ object MessageManage{
         var type: Int
         var content: String
         var voiceTime = 0.0
-        findContactMessageById(otherId) { a, n ->
+        findMessageById(otherId) { a, n ->
             val list = messages.asReversed()
                 .filter {
                     (it is AVIMTextMessage || it is AVIMImageMessage || it is AVIMVideoMessage)
@@ -298,7 +331,8 @@ object MessageManage{
         }
     }
 
-    fun findContactMessageById(contactId: String, findCallback: (avatar: String?, name: String) -> Unit) {
+
+    fun findMessageById(contactId: String, findCallback: (avatar: String?, name: String) -> Unit) {
         if (contactId == owner?.userId){
             findCallback(owner!!.avatar,owner!!.name)
         }else{
