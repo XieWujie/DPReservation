@@ -21,7 +21,16 @@ object DoctorManager{
             findDoctorByNet(doctorId,findCallback)
         }
     }
+
+    fun requestDoctors(context: Context,list: List<String>,requestCallback: (e: Exception?) -> Unit){
+        for (i in list){
+            findDoctorById(context,i){
+
+            }
+        }
+    }
     fun requestDoctor(context: Context,requestCallback:(e:Exception?)->Unit){
+        initRepository(context)
         val o = AVQuery<AVObject>("_User")
         o.whereEqualTo("doctorCertification",true)
         o.findInBackground(object :FindCallback<AVObject>(){

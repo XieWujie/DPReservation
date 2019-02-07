@@ -23,22 +23,27 @@ object UserManage{
     var user:User? = null
     var position:Position? = null
     val atttention = ArrayList<String>()
+    var avUser:AVUser? = null
 
     fun login(view: View, username:String,password:String,loginCallback:(user:User?)->Unit){
         initRespository(view.context)
         AVUser.logInInBackground(username,password,object : LogInCallback<AVUser>(){
-            override fun done(avUser: AVUser?, e: AVException?) {
+            override fun done(aU: AVUser?, e: AVException?) {
                 if (e==null){
+                    aU!!
+                    avUser = aU
                     val  c = AVIMClient.getInstance(avUser!!.objectId)
                     c.open(object : AVIMClientCallback(){
                         override fun done(c: AVIMClient?, e: AVIMException?) {
                             if (e==null){
-                                val avatar = avUser.getString(AVATAR)
-                                val mailBox = avUser.getString("email")
-                                val a = avUser.getList("attention").map { it as String }
-                                atttention.clear()
-                                atttention.addAll(a)
-                                 val u = User(avUser.objectId,username,password, Date().time,mailBox,false,avatar)
+                                val avatar = aU.getString(AVATAR)
+                                val mailBox = aU.getString("email")
+                                val a = aU.getList("attention")
+                                if (a != null) {
+                                    atttention.clear()
+                                    atttention.addAll(a.map { it as String })
+                                }
+                                 val u = User(aU.objectId,username,password, Date().time,mailBox,false,avatar)
                                 respository?.addUser(u)
                                 user = u
                                 client = c
@@ -72,6 +77,7 @@ object UserManage{
                     Util.log(view,e.message)
 
                 }else{
+                    avUser = user
                     val id = user.objectId
                     val  c = AVIMClient.getInstance(id)
                     c.open(object : AVIMClientCallback(){
@@ -99,6 +105,7 @@ object UserManage{
 
 
     private fun initRespository(context: Context){
+        if (respository == null)
         respository = UserRepository.getInstance(AppDatabase.getInstance(context).getUserDao())
     }
 
@@ -160,4 +167,5 @@ object UserManage{
             }
         })
     }
+
 }

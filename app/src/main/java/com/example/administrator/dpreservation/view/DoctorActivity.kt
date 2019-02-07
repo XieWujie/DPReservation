@@ -26,6 +26,7 @@ class DoctorActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+        setTitle("医生详情")
         navController = findNavController(R.id.doc_nav)
         binding.sendEvaluation.setOnClickListener {
             navController.navigate(R.id.action_doctorDetailFragment_to_reservationFragment)

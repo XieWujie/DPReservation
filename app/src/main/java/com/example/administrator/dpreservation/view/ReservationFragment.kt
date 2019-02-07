@@ -57,6 +57,7 @@ class ReservationFragment:Fragment(){
                     it.isClickable = true
                     if (e  == null){
                         Util.toActivity<OrderActivity>(it.context)
+                        activity?.finish()
                     }else{
                         Util.log(binding.root,e?.message)
                     }

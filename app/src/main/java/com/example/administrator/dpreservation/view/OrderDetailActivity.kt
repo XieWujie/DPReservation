@@ -18,14 +18,15 @@ class OrderDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_order_detail)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         val order = intent.getSerializableExtra("order")
-        setSupportActionBar(binding.toolbar)
         if (order is Order){
             binding.order = order
             eventHandle(order)
         }
+        setTitle("订单详情")
     }
 
     fun eventHandle(order: Order){

@@ -24,10 +24,12 @@ class MessageActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setTitle("消息")
         binding.toolbar.setTitleTextColor(Color.WHITE)
-        binding.toolbar.setNavigationOnClickListener {
-            finish()
-        }
         navController = findNavController(R.id.m_nav)
+        binding.toolbar.setNavigationOnClickListener {
+            if (navController.navigateUp()){
+                finish()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -26,7 +26,7 @@ class DoctorModel internal constructor(private val repository: DoctorRepository)
          val doctor = Doctor("id","医生1",null,position.copy(latitude = 20.toDouble()),
              "1年","大学生",true,true,
              "9-17点","重庆邮电大学","重庆市南岸区崇文路2号",
-             "555456001",8,"换牙 洗牙",4.5f,true)
+             "555456001",8,"换牙 洗牙",4.5f,false)
          for (i in 0..30){
              list.add(doctor.copy(id = "id$i", name = "医生$i",position = position.copy(latitude = 20.0+i)))
          }
