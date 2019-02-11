@@ -13,6 +13,7 @@ import com.example.administrator.dpreservation.core.OrderManage
 import com.example.administrator.dpreservation.core.UserManage
 import com.example.administrator.dpreservation.databinding.ActivityOrderBinding
 import com.example.administrator.dpreservation.utilities.ALL
+import com.example.administrator.dpreservation.utilities.COMPLETE
 import com.example.administrator.dpreservation.utilities.NOT_EVALUATION
 import com.example.administrator.dpreservation.utilities.Util
 import java.util.*
@@ -30,6 +31,29 @@ class OrderActivity : AppCompatActivity(),ViewPager.OnPageChangeListener{
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_order)
         initUI()
+        dispatchEvent()
+    }
+
+    private fun dispatchEvent() {
+        val viewPager = binding.viewPager
+        binding.all.setOnClickListener {
+            viewPager.currentItem = 0
+        }
+        binding.notGenerate.setOnClickListener {
+            viewPager.currentItem = 1
+        }
+        binding.notStart.setOnClickListener {
+            viewPager.currentItem = 2
+        }
+        binding.starting.setOnClickListener {
+            viewPager.currentItem = 3
+        }
+        binding.complete.setOnClickListener {
+            viewPager.currentItem = 5
+        }
+        binding.notEvaluation.setOnClickListener {
+            viewPager.currentItem = 4
+        }
     }
 
     fun initUI(){
@@ -51,12 +75,12 @@ class OrderActivity : AppCompatActivity(),ViewPager.OnPageChangeListener{
         layoutParams = binding.tab.layoutParams as LinearLayout.LayoutParams
         val tabWidth = layoutParams.width
         displayWidth = windowManager.defaultDisplay.width
-        width = displayWidth/5
+        width = displayWidth/6
         leftMargin = width/2 - tabWidth/2
         layoutParams.leftMargin = leftMargin
         binding.viewPager.setOnPageChangeListener(this)
         val list = ArrayList<OrderListFragment>()
-        for (i in ALL until  NOT_EVALUATION+1){
+        for (i in ALL until  COMPLETE+1){
             val fragment = OrderListFragment()
             list.add(fragment)
             val bundle = Bundle()

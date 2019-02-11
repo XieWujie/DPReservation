@@ -55,18 +55,18 @@ class ChatFragment : Fragment() {
         binding.chatRcView.adapter = adapter
     }
 
-    fun begin(id: String, conversationName: String, avatar: String?, conversation: AVIMConversation) {
-        this.conversationId = id
+    fun begin(conversationName: String, conversation: AVIMConversation) {
+        this.conversationId = conversation.conversationId
         this.conversationName = conversationName
         this.conversation = conversation
         conversation.read()
-        binding.chatBottom.init(id, conversationName)
+        binding.chatBottom.init(conversationId!!, conversationName)
         binding.chatBottom.setBottomInputListener(object : ButtomInput.BottomInputListener {
             override fun onClick(type: Int) {
                 dispatchEvent(type)
             }
         })
-        model.getMessage(id).observe(this, Observer {
+        model.getMessage(conversationId!!).observe(this, Observer {
             adapter.submitList(it)
             if (!isInited && it.size < 10 && conversationId != null) {
                 MessageManage.queryMessageByConversationId(conversationId!!, 20)
@@ -91,7 +91,7 @@ class ChatFragment : Fragment() {
             if (message != null) {
                 MessageManage.queryMessageByTime(message.id, message.createAt)
             } else {
-                MessageManage.queryMessageByConversationId(id, 20)
+                MessageManage.queryMessageByConversationId(conversationId!!, 20)
             }
             binding.freshLayout.isRefreshing = false
         }

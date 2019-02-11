@@ -18,5 +18,9 @@ data class Order(
     val doctorName:String,
     val address:String,
     val score:Float,
-    val doctorPhone:String
+    val doctorPhone:String,
+    val agreeTime:Long,
+    val createTime:Long,
+    val completeTime:Long,
+    val endTreatmentTime:Long
 ):Serializable

@@ -10,8 +10,8 @@ import androidx.room.Query
 @Dao
 interface DoctorDao{
 
-    @Query("SELECT * FROM doctor")
-    fun getNearDoctor():DataSource.Factory<Int,Doctor>
+    @Query("SELECT * FROM doctor ORDER BY streetNumber=:street DESC,district=:district DESC, city=:city DESC,name")
+    fun getNearDoctor(city:String,district:String,street:String):DataSource.Factory<Int,Doctor>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addDoctor(list:List<Doctor>)

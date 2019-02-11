@@ -9,6 +9,7 @@ import com.avos.avoscloud.im.v2.callback.*
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage
 import com.avos.avoscloud.im.v2.messages.AVIMVideoMessage
+import com.example.administrator.dpreservation.custom.OrderMessage
 import com.example.administrator.dpreservation.data.AppDatabase
 import com.example.administrator.dpreservation.data.message.Message
 import com.example.administrator.dpreservation.data.message.MessageRepository
@@ -41,6 +42,10 @@ object MessageManage{
             repository?.insert(message)
         }
         getConversation(message.conversationId) {
+            if (it == null){
+                repository?.insert(message.copy(sendState = SEND_FAIL))
+                return@getConversation
+            }
             when (message.type) {
                 TEXT_MESSAGE -> sendTextMessage(it, message, e)
                 IMAGE_MESSAGE -> sendImageMessage(it, message, e)
@@ -49,28 +54,36 @@ object MessageManage{
         }
     }
 
-    private fun getConversation(id: String, callback: (conversation: AVIMConversation) -> Unit) {
+    fun sendOrderMessage(doctorId:String,orderId:String){
+        findConversation(doctorId) { conversation ->
+            val m = OrderMessage()
+            m.id = orderId
+            conversation?.sendMessage(m, null)
+        }
+    }
+
+    private fun getConversation(id: String, callback: (conversation: AVIMConversation?) -> Unit) {
             if (conversationMap.containsKey(id)) {
                 callback(conversationMap[id]!!)
             } else {
-                val conversation = client?.getConversation(id)
-                if (conversation == null) {
-                    return
-                }
-                if (conversation.isShouldFetch) {
-                    conversation?.fetchInfoInBackground(object : AVIMConversationCallback() {
-                        override fun done(e: AVIMException?) {
-                            if (e == null) {
-                                conversationMap[id] = conversation
-                                callback(conversation)
-                            } else {
-                                e.printStackTrace()
+                getClient {
+                    if (it == null){
+                        callback(null)
+                        return@getClient
+                    }
+                    val c = it!!.getConversation(id)
+                    if (c.isShouldFetch){
+                        c.fetchInfoInBackground(object :AVIMConversationCallback(){
+                            override fun done(e: AVIMException?) {
+                                if (e == null){
+                                    conversationMap[id] = c
+                                    callback(c)
+                                }else{
+                                    callback(null)
+                                }
                             }
-                        }
-                    })
-                } else {
-                    conversationMap[id] = conversation
-                    callback(conversation)
+                        })
+                    }
                 }
             }
         }
@@ -96,26 +109,20 @@ object MessageManage{
         }
 
     fun findConversation(id:String,callback: (conversation: AVIMConversation?) -> Unit){
-        getClient { client ->
-            if (client == null){
-                callback(null)
-                return@getClient
-            }
-            if (conversationMap.containsKey(id) || client.getConversation(id) == null) {
-                callback(conversationMap[id]!!)
-            } else if (client.getConversation(id)!=null){
-                getConversation(id,callback)
-            }else{
-                createConversation(id,callback)
-            }
-        }
+       getConversation(id){
+           if (it == null){
+               createConversation(id,callback)
+           }else{
+               callback(it)
+           }
+       }
     }
 
     private fun createConversation(id:String,callback: (conversation: AVIMConversation?) -> Unit){
         client?.createConversation(listOf(id), "ni", null, false, true, object : AVIMConversationCreatedCallback() {
             override fun done(c: AVIMConversation?, e: AVIMException?) {
                 if (e == null && c != null) {
-                    conversationMap[id] = c!!
+                    conversationMap[c!!.conversationId] = c!!
                     if (c["Info"] == null) {
                         val map = mapOf(
                             getKey(owner!!.userId, USER_ID) to id,
@@ -123,9 +130,11 @@ object MessageManage{
                         )
                         c["Info"] = map
                         c.updateInfoInBackground(object : AVIMConversationCallback() {
-                            override fun done(p0: AVIMException?) {
-                                if (p0 == null) {
+                            override fun done(e: AVIMException?) {
+                                if (e == null) {
                                     callback(c)
+                                }else{
+                                    callback(null)
                                 }
                             }
                         })
@@ -233,7 +242,7 @@ object MessageManage{
 
      fun queryMessageByConversationId(id: String, limit: Int) {
         getConversation(id) { conversation ->
-            conversation.queryMessages(limit, object : AVIMMessagesQueryCallback() {
+            conversation?.queryMessages(limit, object : AVIMMessagesQueryCallback() {
                 override fun done(list: MutableList<AVIMMessage>?, e: AVIMException?) {
                     if (e == null) {
                         convertMessages(conversation, list!!) {
@@ -248,7 +257,7 @@ object MessageManage{
 
      fun queryMessageByTime(id: String, timeStamp: Long) {
         getConversation(id) { conversation ->
-            conversation.queryMessages(id, timeStamp, 20, object : AVIMMessagesQueryCallback() {
+            conversation?.queryMessages(id, timeStamp, 20, object : AVIMMessagesQueryCallback() {
 
                 override fun done(list: MutableList<AVIMMessage>?, e: AVIMException?) {
                     if (e == null) {
@@ -314,7 +323,7 @@ object MessageManage{
                     Message(
                         it.messageId,
                         conId,
-                        name,
+                        n,
                         content,
                         name,
                         it.from,
@@ -333,14 +342,10 @@ object MessageManage{
 
 
     fun findMessageById(contactId: String, findCallback: (avatar: String?, name: String) -> Unit) {
-        if (contactId == owner?.userId){
-            findCallback(owner!!.avatar,owner!!.name)
-        }else{
-            getUserObjectById(contactId){
-                val avatar = it.getString(AVATAR)
-                val name = it.getString(USER_NAME)
-                findCallback(avatar,name)
-            }
+        getUserObjectById(contactId){
+            val avatar = it.getString(AVATAR)
+            val name = it.getString(USER_NAME)
+            findCallback(avatar,name)
         }
     }
 

@@ -16,11 +16,24 @@ import java.util.*
 
 class ViewAdapter{
     companion object {
+
         @JvmStatic
         @BindingAdapter("imageSrc")
         fun setImage(view: ImageView, src:String?){
             if (src.isNullOrBlank()){
-                view.setImageResource(R.drawable.ic_launcher_background)
+                view.setImageResource(R.drawable.doctor_default_avatar)
+            }else {
+                Glide.with(view)
+                    .load(src)
+                    .into(view)
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("patient_image")
+        fun setDoctorImage(view: ImageView, src:String?){
+            if (src.isNullOrBlank()){
+                view.setImageResource(R.drawable.patient_default_avatar)
             }else {
                 Glide.with(view)
                     .load(src)
@@ -63,20 +76,13 @@ class ViewAdapter{
         @JvmStatic
         @BindingAdapter("time")
         fun setTime(view: TextView, timeStamp:Long){
+            val today = Date()
             val d = Date(timeStamp)
-            val f = SimpleDateFormat("dd日 HH:mm:ss")
+            val f = SimpleDateFormat("MM-dd HH:mm")
             val s = f.format(d)
             view.text = s
         }
 
-        @JvmStatic
-        @BindingAdapter("right_time")
-        fun setRightTime(view: TextView, timeStamp: Long){
-            val d = Date(timeStamp)
-            val f = SimpleDateFormat("dd日 HH:mm:ss")
-            val s = f.format(d)
-            view.text = s
-        }
         @JvmStatic
         @BindingAdapter("message_list_time")
         fun setMessageListTime(view: TextView, timeStamp: Long){

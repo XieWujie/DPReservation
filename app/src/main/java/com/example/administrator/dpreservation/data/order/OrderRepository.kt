@@ -11,6 +11,10 @@ class OrderRepository private constructor(private val orderDao: OrderDao){
 
     fun getTypeOrder(ownerId: String,type:Int) = orderDao.getTypeOrder(ownerId,type)
 
+    fun getStartOrder(ownerId: String,time:Long) = orderDao.getStartOrder(ownerId,time)
+
+    fun getNotStartOrder(ownerId: String,time:Long) = orderDao.getNotStartOrder(ownerId,time)
+
     fun delete(order: Order){
         runOnNewThread {
             orderDao.delete(order)

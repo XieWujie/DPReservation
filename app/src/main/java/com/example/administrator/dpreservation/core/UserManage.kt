@@ -66,6 +66,7 @@ object UserManage{
     }
 
      fun register( view: View,username:String,password:String,mailBox:String,callback:(user:User?)->Unit) {
+         initRespository(view.context)
         val user = AVUser()
         user.username = username
         user.setPassword(password)

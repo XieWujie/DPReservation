@@ -7,6 +7,8 @@ import com.avos.avoscloud.im.v2.AVIMMessageHandler
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage
 import com.avos.avoscloud.im.v2.messages.AVIMVideoMessage
+import com.example.administrator.dpreservation.App
+import com.example.administrator.dpreservation.custom.OrderMessage
 import com.example.administrator.dpreservation.data.message.Message
 import com.example.administrator.dpreservation.utilities.*
 
@@ -17,6 +19,7 @@ class MessageHandler: AVIMMessageHandler(){
             is AVIMTextMessage -> cacheTextMessage(message, conversation!!)
             is AVIMImageMessage -> cacheImageMessage(message, conversation!!)
             is AVIMVideoMessage ->handlerVoiceMessage(message,conversation!!)
+            is OrderMessage ->OrderManage.requestOneOrder(App.getContext(),message.id){}
         }
     }
 
@@ -26,7 +29,6 @@ class MessageHandler: AVIMMessageHandler(){
 
 
     private fun cacheMessage(m:AVIMMessage,c:AVIMConversation,content:String,type:Int,voiceTime:Double = 0.0){
-        val map = c["Info"] as Map<String,String>
         val id = m.from
         MessageManage.findMessageById(id){ avatar, name->
             val message = Message(m.messageId,c.conversationId,name,content,name,id,

@@ -17,6 +17,7 @@ import com.avos.avoscloud.im.v2.AVIMConversation
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.core.UserManage
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 object Util{
     fun createProgressDialog(context: Context): Dialog {
@@ -25,6 +26,17 @@ object Util{
         dialog.setContentView(progressBar)
         dialog.setCancelable(false)
         return dialog
+    }
+
+    fun getCurrentTimeStamp():Long{
+        val CD = Calendar.getInstance()
+        val YY = CD.get(Calendar.YEAR)
+        val MM = CD.get(Calendar.MONTH)
+        val DD = CD.get(Calendar.DATE)
+        val HH = CD.get(Calendar.HOUR)
+        val m = CD.get(Calendar.MINUTE)
+        val date = Date(YY-1900,MM,DD,HH,m)
+        return date.time
     }
 
     fun log(view:View,message:String?){

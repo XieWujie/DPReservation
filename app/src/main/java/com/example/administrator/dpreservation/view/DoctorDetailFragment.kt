@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.adapter.EvaluationAdapter
+import com.example.administrator.dpreservation.core.EvaluateManager
 import com.example.administrator.dpreservation.data.doctor.Doctor
 import com.example.administrator.dpreservation.databinding.FragmentDoctorDetailBinding
 import com.example.administrator.dpreservation.utilities.ViewModelFactory
@@ -35,6 +36,9 @@ class DoctorDetailFragment:Fragment(){
     }
 
     fun init(doctor:Doctor){
+        EvaluateManager.findDoctorEvaluation(requireContext(),doctor.id){
+
+        }
         val adapter = EvaluationAdapter()
         model.getScore(doctor.id).observe(this, Observer {
             binding.detailsPraiseNumber.text = "$it 分"

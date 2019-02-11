@@ -9,7 +9,7 @@ data class Evaluation(
     val createAt:Long,
     val patientId:String,
     val doctorId:String,
-    val score:Int,
+    val score:Float,
     val avatar:String?,
     val name:String,
     val content:String

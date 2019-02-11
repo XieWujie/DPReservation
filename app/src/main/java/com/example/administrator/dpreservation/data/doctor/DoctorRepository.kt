@@ -5,7 +5,7 @@ import com.example.administrator.dpreservation.utilities.runOnNewThread
 class DoctorRepository private constructor(private val doctorDao: DoctorDao){
 
 
-     fun getNearDoctor() = doctorDao.getNearDoctor()
+     fun getNearDoctor(city:String,district:String,street:String) = doctorDao.getNearDoctor(city,district,street)
 
     fun getAttention() = doctorDao.getAttention()
 

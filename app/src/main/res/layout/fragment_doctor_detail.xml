@@ -151,7 +151,7 @@
                     android:layout_below="@+id/details_number"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="2dp"
-                    android:text="历史接单"
+                    android:text="完成订单数 "
                     android:textColor="#ffffff"
                     android:textSize="@dimen/normal_text"/>
 
@@ -222,7 +222,7 @@
                     android:layout_below="@+id/details_praise_number"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="2dp"
-                    android:text="好评率"
+                    android:text="好 评"
                     android:textColor="#ffffff"
                     android:textSize="@dimen/normal_text"/>
 

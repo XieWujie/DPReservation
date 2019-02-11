@@ -28,20 +28,16 @@ class ChatActivity : AppCompatActivity(){
         initConversation()
     }
 
-    private fun initConversation(){
+    private fun initConversation() {
         val conversationId = intent.getStringExtra(CONVERSATION_ID)
         val conversationName = intent.getStringExtra(CONVERSATION__NAME)
-        val avatar = intent.getStringExtra(AVATAR)
         MessageManage.findConversation(conversationId) { conversation ->
-            if (conversation == null){
-                Util.log(binding.root,"获取会话失败")
+            if (conversation == null) {
+                Util.log(binding.root, "获取会话失败")
                 return@findConversation
-            }
-            Util.findConversationTitle(conversation, conversationName) {
-                binding.centerText.text = it
-                setTitle("消息")
-                chatFragment.begin(conversationId, it, avatar, conversation)
-            }
+            } else
+                binding.centerText.text = conversationName
+                 chatFragment.begin(conversationName, conversation)
         }
     }
 
@@ -50,6 +46,7 @@ class ChatActivity : AppCompatActivity(){
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp)
+        setTitle("消息")
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.administrator.dpreservation.data.doctor.Doctor
 import com.example.administrator.dpreservation.databinding.NearListLayoutBinding
 
-class NearAdapter:PagedListAdapter<Doctor,BaseHolder>(o){
+class NearAdapter:BaseAdapter<Doctor>(o){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
         val binding = NearListLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -15,9 +15,7 @@ class NearAdapter:PagedListAdapter<Doctor,BaseHolder>(o){
         return holder
     }
 
-    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
-        holder.bind(getItem(position)!!)
-    }
+
 
 
     companion object {

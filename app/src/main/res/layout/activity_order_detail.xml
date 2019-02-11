@@ -4,132 +4,130 @@
     <data>
         <variable name="order" type="com.example.administrator.dpreservation.data.order.Order"/>
     </data>
-    <LinearLayout android:layout_width="match_parent"
-                  android:orientation="vertical"
-                  android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar style="@style/toolbar_style" android:id="@+id/toolbar">
-
         </androidx.appcompat.widget.Toolbar>
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".view.OrderDetailActivity">
-
+        <ScrollView android:layout_width="match_parent"
+                    android:layout_below="@+id/toolbar"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_above="@+id/bottom_layout"
+                    android:layout_height="match_parent">
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="match_parent"
+                              android:orientation="horizontal"
+                              android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="#000000"
+                              android:text="主治医生: "
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="#000000"
+                              android:text="@{order.doctorName}"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                              android:orientation="horizontal"
+                              android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="#000000"
+                              android:text="预定时间: "
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="#000000"
+                              orderTime="@{order.orderTime}"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                              android:orientation="horizontal"
+                              android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="#000000"
+                              android:text="地址: "
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="#000000"
+                              android:text="@{order.address}"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                              android:orientation="horizontal"
+                              android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="#000000"
+                              android:text="联系电话: "
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:textColor="#000000"
+                              android:text="@{order.doctorPhone}"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <View android:layout_width="match_parent"
+                      android:background="@color/dividingLine"
+                      android:layout_height="1dp"/>
+                <View android:layout_width="match_parent"
+                      android:background="@color/dividingLine"
+                      android:layout_marginTop="10dp"
+                      android:layout_height="1dp"/>
+                <TextView android:layout_width="wrap_content"
+                          android:text="订单进度"
+                          android:textColor="#000000"
+                          android:layout_height="wrap_content"/>
+                <com.example.administrator.dpreservation.custom.OrderScheduleView
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/order_schedule"/>
+                <View android:layout_width="match_parent"
+                      android:background="@color/dividingLine"
+                      android:layout_height="1dp"/>
+                <View android:layout_width="match_parent"
+                      android:layout_marginTop="10dp"
+                      android:background="@color/dividingLine"
+                      android:layout_height="1dp"/>
+                <TextView android:layout_width="match_parent"
+                          android:text="订单描述"
+                          android:textColor="#000000"
+                          android:textSize="15sp"
+                          android:layout_marginLeft="30dp"
+                          android:layout_height="wrap_content"/>
+                <TextView android:layout_width="match_parent"
+                          android:gravity="center_horizontal"
+                          android:layout_marginLeft="10dp"
+                          android:layout_marginTop="5dp"
+                          android:text="@{order.description}"
+                          android:layout_marginRight="10dp"
+                          android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </ScrollView>
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="horizontal"
+                      android:id="@+id/bottom_layout"
+                      android:layout_marginBottom="5dp"
+                      android:layout_alignParentBottom="true"
+                      android:layout_height="wrap_content">
             <TextView
                     android:text="取消订单"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_weight="1"
                     android:textColor="#000000"
                     android:layout_height="wrap_content"
-                    android:id="@+id/cancel" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/send_message"
-                    app:layout_constraintVertical_bias="1.0"/>
+                    android:id="@+id/cancel" />
             <TextView
                     android:text="发送消息"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:textColor="#000000"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:textSize="16sp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/send_message" android:layout_marginBottom="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toEndOf="@+id/cancel"
-                    app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintVertical_bias="1.0"/>
-            <ScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/record_layout_background"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="50dp" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="@+id/guideline4" android:id="@+id/scrollView2">
-                <TextView android:layout_width="match_parent"
-                          android:gravity="left"
-                          android:text="@{order.description}"
-                          android:layout_height="match_parent"/>
-            </ScrollView>
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_location_on_black_18dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView3" android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/guideline3"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline5" android:layout_marginEnd="8dp"/>
-            <TextView
-                    android:text="@{order.doctorName}"
-                    android:layout_width="wrap_content"
-                    android:textColor="#000000"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView7"
-                    app:layout_constraintStart_toStartOf="@+id/guideline5"
-                    android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline3" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintVertical_bias="0.01999998"/>
-            <TextView
-                    android:text="@{order.address}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView8"
-                    android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/guideline5"
-                    app:layout_constraintStart_toEndOf="@+id/guideline5" app:layout_constraintHorizontal_bias="0.0"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/guideline3"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.822" android:layout_marginStart="8dp"/>
-            <TextView
-                    android:text="@{order.doctorPhone}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView9"
-                    app:layout_constraintTop_toTopOf="@+id/textView7"
-                    app:layout_constraintStart_toEndOf="@+id/textView7"
-                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView7" app:layout_constraintVertical_bias="0.0"/>
-            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:id="@+id/guideline3"
-                                                        app:layout_constraintGuide_begin="80dp"
-                                                        android:orientation="horizontal"/>
-            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:id="@+id/guideline4"
-                                                        app:layout_constraintGuide_begin="110dp"
-                                                        android:orientation="horizontal"/>
-            <TextView
-                    android:text="预定时间"
-                    android:layout_width="wrap_content"
-                    android:textColor="#000000"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView10" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toTopOf="@+id/guideline3" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline4" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.08"
-                    app:layout_constraintVertical_bias="0.0"/>
-            <TextView
-                    orderTime="@{order.orderTime}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView11"
-                    app:layout_constraintTop_toTopOf="@+id/textView10"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                    app:layout_constraintStart_toEndOf="@+id/textView10" android:layout_marginStart="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                    app:layout_constraintHorizontal_bias="0.1"/>
-            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:id="@+id/guideline5"
-                                                        app:layout_constraintGuide_begin="58dp"
-                                                        android:orientation="vertical"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+                    android:id="@+id/send_message" />
+        </LinearLayout>
+    </RelativeLayout>
 </layout>

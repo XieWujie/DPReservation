@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
-                right_time="@{message.createAt}"
+                time="@{message.createAt}"
                 android:layout_marginTop="10dp"
                 android:gravity="center"/>
 
@@ -62,7 +62,7 @@
             <ImageView
                     android:id="@+id/chat_right_iv_avatar"
                     style="@style/ChatAvatar"
-                    imageSrc="@{message.avatar}"
+                    patient_image="@{message.avatar}"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="10dp"/>
 

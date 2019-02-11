@@ -10,9 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.administrator.dpreservation.adapter.OrderListAdapter
+import com.example.administrator.dpreservation.core.OrderManage
 import com.example.administrator.dpreservation.databinding.FragmentOrderListBinding
 import com.example.administrator.dpreservation.utilities.*
 import com.example.administrator.dpreservation.viewmodel.OrderModel
+import java.util.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.locks.Lock
 
@@ -45,9 +47,23 @@ class OrderListFragment:Fragment(){
             ALL->model.getOwnerOrder(ownerId!!).observe(this, Observer {
                 adapter.submitList(it)
             })
-            NOT_START, NOT_EVALUATION, COMPLETE, NOT_GENERATED->model.getTypeOrder(ownerId!!,type).observe(this, Observer {
+            NOT_EVALUATION, COMPLETE, NOT_GENERATED->model.getTypeOrder(ownerId!!,type).observe(this, Observer {
                 adapter.submitList(it)
             })
+            STARTING->model.getStartOrder(ownerId!!,Util.getCurrentTimeStamp()).observe(this, Observer {
+                adapter.submitList(it)
+            })
+            NOT_START->model.getNotStartOrder(ownerId!!,Util.getCurrentTimeStamp()).observe(this, Observer {
+                adapter.submitList(it)
+            })
+        }
+        binding.freshLayout.setOnRefreshListener {
+            OrderManage.requestPatientOrder(requireContext(),ownerId!!){
+                binding.freshLayout.isRefreshing = false
+                if (it != null){
+                    Util.log(binding.root,it.message)
+                }
+            }
         }
     }
 }

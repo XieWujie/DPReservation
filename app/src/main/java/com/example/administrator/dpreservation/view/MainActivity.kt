@@ -20,12 +20,15 @@ import com.amap.api.maps2d.CameraUpdateFactory
 import com.amap.api.maps2d.LocationSource
 import com.amap.api.maps2d.model.*
 import com.example.administrator.dpreservation.R
+import com.example.administrator.dpreservation.adapter.Event
 import com.example.administrator.dpreservation.adapter.NearAdapter
 import com.example.administrator.dpreservation.adapter.TypeAdapter
+import com.example.administrator.dpreservation.core.DoctorManager
 import com.example.administrator.dpreservation.core.UserManage
 import com.example.administrator.dpreservation.data.Position
 import com.example.administrator.dpreservation.data.doctor.Doctor
 import com.example.administrator.dpreservation.databinding.ActivityMainBinding
+import com.example.administrator.dpreservation.utilities.Util
 import com.example.administrator.dpreservation.utilities.ViewModelFactory
 import com.example.administrator.dpreservation.viewmodel.DoctorModel
 
@@ -40,27 +43,21 @@ class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener 
     private var markerMe: Marker? = null
     private lateinit var model: DoctorModel
     private val nearAdapter = NearAdapter()
+    private var isLocate = false
     private val doctorMarkerMap = HashMap<Doctor,Marker>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         binding.setLifecycleOwner(this)
         binding.mapView.onCreate(savedInstanceState)
         init()
         val factory = ViewModelFactory.getClinicModelFactory(this)
         model = ViewModelProviders.of(this,factory).get(DoctorModel::class.java)
-        model.initData()
-        model.getNearClinic().observe(this, Observer {
-            nearAdapter.submitList(it)
-            initDoctorMarker(it)
-        })
+        DoctorManager.requestDoctor(this){
+
+        }
     }
 
     private fun initDoctorMarker(list:PagedList<Doctor>){
@@ -85,8 +82,6 @@ class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener 
         val manage = LinearLayoutManager(this)
         nearRcView.layoutManager = manage
         nearRcView.adapter = nearAdapter
-        binding.typeRc.adapter = TypeAdapter()
-        binding.typeRc.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
         amap = binding.mapView.map
         amap?.setLocationSource(this)
         val setting = amap!!.uiSettings
@@ -105,13 +100,23 @@ class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener 
         mLocationOption?.interval = 2000
         mLocationClient?.setLocationOption(mLocationOption)
         mLocationClient?.startLocation()
+        nearAdapter.setEvent(object :Event{
+            override fun event(vararg any: Any) {
+                val d = any[0]
+                if (d is Doctor){
+                    val position = d.position
+                    amap?.moveCamera(CameraUpdateFactory.changeLatLng( LatLng(position.latitude,position.longitude)));
+                    mLocationClient?.stopLocation()
+                }
+            }
+        })
     }
 
     private fun addMark(latLng: LatLng){
         val option = MarkerOptions()
             .position(latLng)
             .title("我")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_on_black_18dp))
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_position_icon))
         markerMe?.remove()
         markerMe =  amap?.addMarker(option)
     }
@@ -132,7 +137,14 @@ class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener 
             if (errorCode !=0) {
                 return
             }
-            val p = Position(country,province,city,district,streetNum,latitude,longitude)
+            val p = Position(country,province,city,district,streetNum,"",latitude,longitude)
+            if (!isLocate){
+                model.getNearClinic(city,district,streetNum).observe(this@MainActivity, Observer {
+                    nearAdapter.submitList(it)
+                    initDoctorMarker(it)
+                })
+                false
+            }
             UserManage.position = p
             binding.position = p
             if (isFirst){

@@ -22,15 +22,15 @@
                     android:textSize="16sp"
                     android:layout_height="50dp" />
             <TextView
-                    android:id="@+id/not_start"
                     android:layout_weight="1"
+                    android:id="@+id/not_generate"
                     android:layout_width="30dp"
                     android:text="待确认"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:layout_height="50dp" />
             <TextView
-                    android:id="@+id/not_evaluation"
+                    android:id="@+id/not_start"
                     android:layout_weight="1"
                     android:layout_width="30dp"
                     android:text="未开始"
@@ -38,18 +38,26 @@
                     android:textSize="16sp"
                     android:layout_height="50dp" />
             <TextView
-                    android:id="@+id/comlete"
+                    android:id="@+id/starting"
                     android:layout_weight="1"
                     android:layout_width="30dp"
-                    android:text="完成"
+                    android:text="已开始"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:layout_height="50dp" />
             <TextView
-                    android:id="@+id/not_generate"
+                    android:id="@+id/not_evaluation"
                     android:layout_weight="1"
                     android:layout_width="30dp"
                     android:text="待评价"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:layout_height="50dp" />
+            <TextView
+                    android:id="@+id/complete"
+                    android:layout_weight="1"
+                    android:layout_width="30dp"
+                    android:text="完成"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:layout_height="50dp" />

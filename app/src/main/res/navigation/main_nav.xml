@@ -3,10 +3,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/main_nav" app:startDestination="@id/startFragment">
 
-    <fragment android:id="@+id/mapFragment" android:name="com.example.administrator.dpreservation.view.MapFragment"
-              android:label="MapFragment"/>
     <fragment android:id="@+id/startFragment" android:name="com.example.administrator.dpreservation.view.StartFragment"
               android:label="StartFragment">
-        <action android:id="@+id/action_startFragment_to_mapFragment" app:destination="@id/mapFragment"/>
     </fragment>
 </navigation>

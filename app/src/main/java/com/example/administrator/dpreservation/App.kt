@@ -1,11 +1,14 @@
 package com.example.administrator.dpreservation
 
 import android.app.Application
+import android.content.Context
 import com.avos.avoscloud.AVOSCloud
 import com.avos.avoscloud.PushService
 import com.avos.avoscloud.im.v2.AVIMMessageManager
 import com.example.administrator.dpreservation.core.MessageHandler
+import com.example.administrator.dpreservation.custom.OrderMessage
 
+private lateinit var context: Context
 class App:Application(){
 
 //     val APP_ID = "FTDVimcFscVf6mA2n9ebuCue-gzGzoHsz"
@@ -15,8 +18,15 @@ class App:Application(){
 
     override fun onCreate() {
         super.onCreate()
+        context = applicationContext
         AVOSCloud.initialize(this, APP_ID, APP_KEY)
         AVOSCloud.setDebugLogEnabled(true)
         AVIMMessageManager.registerDefaultMessageHandler(MessageHandler())
+        AVIMMessageManager.registerAVIMMessageType(OrderMessage::class.java)
+    }
+
+    companion object {
+
+        fun getContext() = context
     }
 }

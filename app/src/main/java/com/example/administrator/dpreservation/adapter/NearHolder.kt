@@ -16,6 +16,9 @@ class NearHolder(val binding:NearListLayoutBinding):BaseHolder(binding.root){
                 intent.putExtra("doctor",any)
                 it.context.startActivity(intent)
             }
+            binding.toLocate.setOnClickListener {
+                listenter?.event(any)
+            }
         }
     }
 }
