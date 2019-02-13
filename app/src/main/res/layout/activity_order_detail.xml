@@ -5,6 +5,7 @@
         <variable name="order" type="com.example.administrator.dpreservation.data.order.Order"/>
     </data>
     <RelativeLayout android:layout_width="match_parent"
+                    android:background="#ffffff"
                     android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar style="@style/toolbar_style" android:id="@+id/toolbar">
         </androidx.appcompat.widget.Toolbar>
@@ -19,6 +20,8 @@
                           android:layout_height="wrap_content">
                 <LinearLayout android:layout_width="match_parent"
                               android:orientation="horizontal"
+                              android:layout_marginTop="5dp"
+                              android:layout_marginLeft="10dp"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textColor="#000000"
@@ -31,6 +34,8 @@
                 </LinearLayout>
                 <LinearLayout android:layout_width="match_parent"
                               android:orientation="horizontal"
+                              android:layout_marginTop="5dp"
+                              android:layout_marginLeft="10dp"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textColor="#000000"
@@ -43,10 +48,12 @@
                 </LinearLayout>
                 <LinearLayout android:layout_width="match_parent"
                               android:orientation="horizontal"
+                              android:layout_marginTop="5dp"
+                              android:layout_marginLeft="10dp"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textColor="#000000"
-                              android:text="地址: "
+                              android:text="工作地址: "
                               android:layout_height="wrap_content"/>
                     <TextView android:layout_width="wrap_content"
                               android:textColor="#000000"
@@ -55,6 +62,8 @@
                 </LinearLayout>
                 <LinearLayout android:layout_width="match_parent"
                               android:orientation="horizontal"
+                              android:layout_marginTop="5dp"
+                              android:layout_marginLeft="10dp"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
                               android:textColor="#000000"
@@ -66,6 +75,7 @@
                               android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <View android:layout_width="match_parent"
+                      android:layout_marginTop="5dp"
                       android:background="@color/dividingLine"
                       android:layout_height="1dp"/>
                 <View android:layout_width="match_parent"
@@ -110,7 +120,7 @@
                       android:layout_marginBottom="5dp"
                       android:layout_alignParentBottom="true"
                       android:layout_height="wrap_content">
-            <TextView
+            <Button
                     android:text="取消订单"
                     android:layout_width="0dp"
                     android:textSize="16sp"
@@ -119,7 +129,7 @@
                     android:textColor="#000000"
                     android:layout_height="wrap_content"
                     android:id="@+id/cancel" />
-            <TextView
+            <Button
                     android:text="发送消息"
                     android:layout_width="0dp"
                     android:textColor="#000000"

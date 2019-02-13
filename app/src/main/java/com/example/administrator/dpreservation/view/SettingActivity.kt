@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.databinding.ActivitySettingBinding
 
-class SettingActivity : AppCompatActivity(){
+class SettingActivity : BaseActivity(){
 
     private lateinit var navController: NavController
 
@@ -19,9 +19,7 @@ class SettingActivity : AppCompatActivity(){
         val binding = DataBindingUtil.setContentView<ActivitySettingBinding>(this,R.layout.activity_setting)
         setSupportActionBar(binding.toolbar)
         setTitle("设置")
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp)
+        setActionBar(binding.toolbar)
         navController = findNavController(R.id.setting_nav)
     }
 

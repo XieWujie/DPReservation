@@ -90,10 +90,12 @@ class StartFragment:Fragment(){
 
     private fun toNext(){
         model.lastUser?.observe(this, Observer {
-            UserManage.user = it
-            MessageManage.init(requireContext(),it)
-            DoctorManager.requestDoctor(requireContext()){
+            if (it != null&&it.isLogout == false) {
+                UserManage.user = it
+                MessageManage.init(requireContext(), it)
+                DoctorManager.requestDoctor(requireContext()) {
 
+                }
             }
             toMainActivity()
         })?:toMainActivity()

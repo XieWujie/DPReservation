@@ -32,7 +32,7 @@ import com.example.administrator.dpreservation.utilities.Util
 import com.example.administrator.dpreservation.utilities.ViewModelFactory
 import com.example.administrator.dpreservation.viewmodel.DoctorModel
 
-class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener {
+class MainActivity : BaseActivity() , LocationSource, AMapLocationListener {
 
     lateinit var binding: ActivityMainBinding
     private var mLocationClient: AMapLocationClient?=null;
@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() , LocationSource, AMapLocationListener 
             UserManage.position = p
             binding.position = p
             if (isFirst){
-                amap?.moveCamera(CameraUpdateFactory.zoomTo(17f));
+                amap?.moveCamera(CameraUpdateFactory.zoomTo(10f));
                 amap?.moveCamera(CameraUpdateFactory.changeLatLng( LatLng(latitude, longitude)));
                 //点击定位按钮 能够将地图的中心移动到定位点
                 mListener?.onLocationChanged(this)

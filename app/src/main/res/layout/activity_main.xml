@@ -46,7 +46,7 @@
 
                 <com.example.administrator.dpreservation.custom.scrolllayout.ScrollLayout android:layout_width="match_parent"
                                                                                           android:layout_height="match_parent"
-                                                                                          app:maxOffset="250dp"
+                                                                                          app:maxOffset="50dp"
                                                                                           app:state="open"
                                                                                           app:allowHorizontalScroll="false" app:exitOffset="0dp">                         app:isSupportExit="true" app:maxOffset="260dp" app:minOffset="50dp" app:state="open">
                     <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"

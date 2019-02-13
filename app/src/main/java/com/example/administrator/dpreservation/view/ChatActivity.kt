@@ -15,7 +15,7 @@ import com.example.administrator.dpreservation.utilities.CONVERSATION_ID
 import com.example.administrator.dpreservation.utilities.CONVERSATION__NAME
 import com.example.administrator.dpreservation.utilities.Util
 
-class ChatActivity : AppCompatActivity(){
+class ChatActivity : BaseActivity(){
 
     private lateinit var chatFragment: ChatFragment
     private lateinit var binding: ActivityChatBinding
@@ -42,10 +42,7 @@ class ChatActivity : AppCompatActivity(){
     }
 
     private fun initView(){
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp)
+        setActionBar(binding.toolbar)
         setTitle("消息")
     }
 

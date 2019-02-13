@@ -13,25 +13,24 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class OrderDetailActivity : AppCompatActivity() {
+class OrderDetailActivity : BaseActivity() {
 
     private lateinit var binding:ActivityOrderDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_order_detail)
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
+        setActionBar(binding.toolbar)
         val order = intent.getSerializableExtra("order")
         if (order is Order){
-            binding.order = order
-            eventHandle(order)
-            if (order.state == NOT_START&&Util.getCurrentTimeStamp()>order.orderTime){
-                initSchedule(order.copy(state = STARTING))
+            val newOrder =  if (order.state == NOT_START&&Util.getCurrentTimeStamp()>order.orderTime){
+               order.copy(state = STARTING)
             }else{
-                initSchedule(order)
+                order
             }
+            binding.order = newOrder
+            eventHandle(newOrder)
+            initSchedule(newOrder)
         }
         setTitle("订单详情")
     }
@@ -53,28 +52,6 @@ class OrderDetailActivity : AppCompatActivity() {
     }
 
     fun eventHandle(order: Order){
-        if (order.state == NOT_EVALUATION){
-            binding.cancel.text = "评价"
-            binding.cancel.setOnClickListener {
-                val intent = Intent(this,EvaluateActivity::class.java)
-                intent.putExtra("order",order)
-                startActivity(intent)
-            }
-        }else {
-            binding.cancel.setOnClickListener {
-                val dialog = Util.createProgressDialog(this)
-                dialog.show()
-                OrderManage.cancelOrder(order) {
-                    dialog.dismiss()
-                    if (it == null) {
-                        Util.log(binding.root, "取消订单成功")
-                        finish()
-                    } else {
-                        Util.log(binding.root, "取消订单失败")
-                    }
-                }
-            }
-        }
         binding.sendMessage.setOnClickListener {
             val intent = Intent(this,ChatActivity::class.java)
             intent.putExtra(CONVERSATION__NAME,order.doctorName)
@@ -84,6 +61,41 @@ class OrderDetailActivity : AppCompatActivity() {
         }
         binding.toolbar.setNavigationOnClickListener {
             finish()
+        }
+        when(order.state){
+            COMPLETE->{
+                binding.bottomLayout.removeView(binding.cancel)
+            }
+            NOT_EVALUATION->{
+                binding.cancel.text = "评价"
+                binding.cancel.setOnClickListener {
+                    val intent = Intent(this,EvaluateActivity::class.java)
+                    intent.putExtra("order",order)
+                    startActivity(intent)
+                }
+            }
+            NOT_START, NOT_GENERATED->{
+                binding.cancel.text = "取消订单"
+                binding.cancel.setOnClickListener {
+                    val dialog = Util.createProgressDialog(this)
+                    dialog.show()
+                    OrderManage.cancelOrder(order) {
+                        dialog.dismiss()
+                        if (it == null) {
+                            Util.log(binding.root, "取消订单成功")
+                            finish()
+                        } else {
+                            Util.log(binding.root, "取消订单失败")
+                        }
+                    }
+                }
+            }
+            STARTING->{
+                binding.cancel.text = "支付"
+                binding.cancel.setOnClickListener {
+                    Util.pay(binding.root)
+                }
+            }
         }
     }
 }

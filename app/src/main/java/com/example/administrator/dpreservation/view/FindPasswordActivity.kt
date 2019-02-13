@@ -8,7 +8,7 @@ import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.databinding.ActivityFindPasswordBinding
 import com.example.administrator.dpreservation.presenter.FindPasswordPresenter
 
-class FindPasswordActivity : AppCompatActivity() {
+class FindPasswordActivity : BaseActivity() {
 
     private lateinit var binding:ActivityFindPasswordBinding
 

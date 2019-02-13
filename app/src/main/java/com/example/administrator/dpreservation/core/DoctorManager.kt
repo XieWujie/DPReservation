@@ -6,6 +6,8 @@ import com.example.administrator.dpreservation.data.AppDatabase
 import com.example.administrator.dpreservation.data.Position
 import com.example.administrator.dpreservation.data.doctor.Doctor
 import com.example.administrator.dpreservation.data.doctor.DoctorRepository
+import com.example.administrator.dpreservation.utilities.AVATAR
+import com.example.administrator.dpreservation.utilities.USER_NAME
 import java.lang.Exception
 
 object DoctorManager{
@@ -24,6 +26,7 @@ object DoctorManager{
 
 
     fun requestDoctors(context: Context,list: List<String>,requestCallback: (e: Exception?) -> Unit){
+        val size = list.size
         for (i in list){
             findDoctorById(context,i){
 
@@ -32,8 +35,7 @@ object DoctorManager{
     }
     fun requestDoctor(context: Context,requestCallback:(e:Exception?)->Unit){
         initRepository(context)
-        val o = AVQuery<AVObject>("_User")
-     //   o.whereEqualTo("doctorCertification",false)
+        val o = AVQuery<AVObject>("_User").whereEqualTo("doctorCertification",true)
         o.findInBackground(object :FindCallback<AVObject>(){
             override fun done(list: MutableList<AVObject>?, e: AVException?) {
                 if (e == null){
@@ -45,9 +47,8 @@ object DoctorManager{
                            val education:String = getString("education")?:"未知"
                            val doctorCertification:Boolean = getBoolean("doctorCertification")?:false
                            val authentication:Boolean = getBoolean("authentication")?:false
-                           val workerTime:String = getString("workerTime")?:"未知"
+                           val workerTime:String = getString("workTime")?:"未知"
                            val graduatedSchool:String = getString("graduatedSchool")?:"未知"
-                           val workerAddress:String = getString("workerAddress")?:"未知"
                            val phone:String = getString("phone")?:"未知"
                            val historyOrderCount:Int = getInt("historyOrder")?:0
                            val goodAt:String = getString("goodAt")?:"未知"
@@ -66,6 +67,7 @@ object DoctorManager{
                                isAttention = true
                            }
                            val position = Position(country,province,city,district,streetNumber,description,latitude,longitude)
+                           val workerAddress:String = position.toString()
                            val doctor = Doctor(objectId,name,avatar,position,qualification,education,doctorCertification,
                                authentication,workerTime,graduatedSchool,workerAddress,phone,historyOrderCount,goodAt,praise,isAttention)
                            repository?.addDoctor(doctor)
@@ -86,15 +88,14 @@ object DoctorManager{
             override fun done(o: AVObject?, e: AVException?) {
                 if (e == null){
                     with(o!!){
-                        val name:String = getString("username")
-                        val avatar:String = getString("avatar")
+                        val name:String = getString(USER_NAME)
+                        val avatar:String = getString(AVATAR)
                         val qualification:String = getString("qualification")
                         val education:String = getString("education")
                         val doctorCertification:Boolean = getBoolean("doctorCertification")
                         val authentication:Boolean = getBoolean("authentication")
-                        val workerTime:String = getString("workerTime")
+                        val workerTime:String = getString("workTime")
                         val graduatedSchool:String = getString("graduatedSchool")
-                        val workerAddress:String = getString("workerAddress")
                         val phone:String = getString("phone")
                         val historyOrderCount:Int = getInt("historyOrder")
                         val goodAt:String = getString("goodAt")
@@ -113,6 +114,7 @@ object DoctorManager{
                             isAttention = true
                         }
                         val position = Position(country,province,city,district,streetNumber,description,latitude,longitude)
+                        val workerAddress:String  = position.toString()
                         val doctor = Doctor(doctorId,name,avatar,position,qualification,education,doctorCertification,
                             authentication,workerTime,graduatedSchool,workerAddress,phone,historyOrderCount,goodAt,praise,isAttention)
                         repository?.addDoctor(doctor)

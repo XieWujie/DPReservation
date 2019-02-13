@@ -1,5 +1,7 @@
 package com.example.administrator.dpreservation.adapter
 
+import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.view.View
 import com.example.administrator.dpreservation.core.OrderManage
@@ -9,6 +11,7 @@ import com.example.administrator.dpreservation.utilities.*
 import com.example.administrator.dpreservation.view.ChatActivity
 import com.example.administrator.dpreservation.view.EvaluateActivity
 import com.example.administrator.dpreservation.view.OrderDetailActivity
+import java.net.URISyntaxException
 import java.util.*
 
 class OrderItemHolder(private val binding:OrderListItemBinding):BaseHolder(binding.root){
@@ -21,11 +24,11 @@ class OrderItemHolder(private val binding:OrderListItemBinding):BaseHolder(bindi
                NOT_START->if (Util.getCurrentTimeStamp()<any.orderTime){
                    "未开始"
                }else{
-                   binding.cancel.text = "已结束治疗"
+                   binding.cancel.text = "支付"
                    "已开始"
                }
                STARTING->{
-                   binding.cancel.text = "已结束治疗"
+                   binding.cancel.text = "支付"
                    "已开始"
                }
                COMPLETE->{
@@ -69,13 +72,25 @@ class OrderItemHolder(private val binding:OrderListItemBinding):BaseHolder(bindi
                         intent.putExtra("order",any)
                         context.startActivity(intent)
                     }
-                    "已结束治疗"->{
-                        OrderManage.endTreatment(context,any){
-
-                        }
+                    "支付"->{
+                        Util.pay(view)
                     }
                 }
             }
+        }
+    }
+
+    fun startIntentUrl(context: Context) {
+        val intentUrl =  "intent://platformapi/startapp?saId=10000007&" +
+                "clientVersion=3.7.0.0718&qrcode=https%3A%2F%2Fqr.alipay.com%2F$PAY_ID%3F_s" +
+                "%3Dweb-other&_t=1472443966571#Intent;" + "scheme=alipayqr;package=com.eg.android.AlipayGphone;end"
+        try {
+            val intent = Intent . parseUri (intentUrl, Intent.URI_INTENT_SCHEME);
+            context.startActivity(intent);
+        } catch (e:URISyntaxException) {
+            e.printStackTrace();
+        } catch (e: ActivityNotFoundException) {
+            e.printStackTrace();
         }
     }
 }

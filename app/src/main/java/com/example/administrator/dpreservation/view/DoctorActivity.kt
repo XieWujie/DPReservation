@@ -15,7 +15,7 @@ import com.example.administrator.dpreservation.data.doctor.Doctor
 import com.example.administrator.dpreservation.databinding.ActivityDoctorBinding
 import com.example.administrator.dpreservation.utilities.Util
 
-class DoctorActivity : AppCompatActivity() {
+class DoctorActivity : BaseActivity() {
 
     private lateinit var binding:ActivityDoctorBinding
     private lateinit var navController: NavController
@@ -23,9 +23,7 @@ class DoctorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_doctor)
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
+        setActionBar(binding.toolbar)
         setTitle("医生详情")
         navController = findNavController(R.id.doc_nav)
         binding.sendEvaluation.setOnClickListener {

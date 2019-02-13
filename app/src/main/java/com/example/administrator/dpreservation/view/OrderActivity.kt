@@ -19,7 +19,7 @@ import com.example.administrator.dpreservation.utilities.Util
 import java.util.*
 import kotlin.collections.ArrayList
 
-class OrderActivity : AppCompatActivity(),ViewPager.OnPageChangeListener{
+class OrderActivity : BaseActivity(),ViewPager.OnPageChangeListener{
 
     lateinit var binding:ActivityOrderBinding
     var displayWidth = 0
@@ -68,10 +68,7 @@ class OrderActivity : AppCompatActivity(),ViewPager.OnPageChangeListener{
                 Util.log(window.decorView,"网络请求订单失败")
             }
         }
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp)
+        setActionBar(binding.toolbar)
         layoutParams = binding.tab.layoutParams as LinearLayout.LayoutParams
         val tabWidth = layoutParams.width
         displayWidth = windowManager.defaultDisplay.width

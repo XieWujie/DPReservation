@@ -7,7 +7,7 @@ class EvaluationHolder(val binding:EvaluationItemBinding):BaseHolder(binding.roo
 
     override fun bind(any: Any) {
         if (any is Evaluation){
-            binding.evaluation = any
+            binding.comment = any
         }
     }
 }

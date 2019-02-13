@@ -22,9 +22,9 @@ class UserRepository private constructor(private val userDao: UserDao) {
         }
     }
 
-    fun deleteUser(user: User) {
+    fun deleteUser() {
         runOnNewThread {
-            userDao.deleteUser(user)
+            userDao.deleteUser()
         }
     }
 

@@ -132,7 +132,7 @@ object UserManage{
 
     fun logout(){
         if (user == null)return
-        respository?.deleteUser(user!!)
+        respository?.addUser(user!!.copy(isLogout = true))
         user = null
         client?.close(null)
         client = null

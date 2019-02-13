@@ -12,23 +12,18 @@ import androidx.navigation.ui.onNavDestinationSelected
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.databinding.ActivityMessageBinding
 
-class MessageActivity : AppCompatActivity() {
+class MessageActivity : BaseActivity() {
 
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       val binding =  DataBindingUtil.setContentView<ActivityMessageBinding>(this,R.layout.activity_message)
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val binding =  DataBindingUtil.setContentView<ActivityMessageBinding>(this,R.layout.activity_message)
+        setActionBar(binding.toolbar)
         setTitle("消息")
-        binding.toolbar.setTitleTextColor(Color.WHITE)
         navController = findNavController(R.id.m_nav)
         binding.toolbar.setNavigationOnClickListener {
-            if (navController.navigateUp()){
-                finish()
-            }
+            onBackPressed()
         }
     }
 

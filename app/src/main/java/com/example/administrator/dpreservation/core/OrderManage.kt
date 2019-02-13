@@ -183,24 +183,6 @@ object OrderManage{
             })
     }
 
-    fun endTreatment(context:Context,order:Order,changeCallback:(e:Exception?)->Unit){
-        initRepository(context)
-        val o = AVObject.createWithoutData("Order",order.id)
-        o.put("state", NOT_EVALUATION)
-        val endTreatmentTime = Date().time
-        o.put("endTreatmentTime",endTreatmentTime)
-        o.saveInBackground(object :SaveCallback(){
-            override fun done(e: AVException?) {
-                if (e == null){
-                    respository?.addOrder(order.copy(state = NOT_EVALUATION,endTreatmentTime = endTreatmentTime))
-                    MessageManage.sendOrderMessage(order.doctorId,order.id)
-                    changeCallback(null)
-                }else{
-                    changeCallback(e)
-                }
-            }
-        })
-    }
 
     fun evaluate(context:Context,order:Order,changeCallback:(e:Exception?)->Unit){
         initRepository(context)

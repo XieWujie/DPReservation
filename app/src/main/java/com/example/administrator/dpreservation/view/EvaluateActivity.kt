@@ -10,16 +10,14 @@ import com.example.administrator.dpreservation.data.order.Order
 import com.example.administrator.dpreservation.databinding.ActivityEvaluateBinding
 import com.example.administrator.dpreservation.utilities.Util
 
-class EvaluateActivity : AppCompatActivity() {
+class EvaluateActivity : BaseActivity() {
 
     private lateinit var binding:ActivityEvaluateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_evaluate)
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setActionBar(binding.toolbar)
         setTitle("发布评论")
         sendEvaluationEvent()
         binding.ratingBar2.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->

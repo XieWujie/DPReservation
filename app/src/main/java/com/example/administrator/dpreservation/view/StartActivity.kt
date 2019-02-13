@@ -9,7 +9,7 @@ import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.databinding.ActivityStartBinding
 
 
-class StartActivity : AppCompatActivity() {
+class StartActivity : BaseActivity() {
 
     lateinit var navController: NavController
 
