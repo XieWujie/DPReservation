@@ -1,8 +1,6 @@
 package com.example.administrator.dpreservation.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.UserManager
 import android.view.MenuItem
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -23,7 +21,7 @@ class DoctorActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_doctor)
-        setActionBar(binding.toolbar)
+        setWhiteBar(binding.toolbar)
         setTitle("医生详情")
         navController = findNavController(R.id.doc_nav)
         binding.sendEvaluation.setOnClickListener {

@@ -1,9 +1,7 @@
 package com.example.administrator.dpreservation.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.core.OrderManage
@@ -21,7 +19,7 @@ class OrderDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_order_detail)
-        setActionBar(binding.toolbar)
+        setWhiteBar(binding.toolbar)
         val order = intent.getSerializableExtra("order")
         if (order is Order){
             val newOrder =  if (order.state == NOT_START&&Util.getCurrentTimeStamp()>order.orderTime){

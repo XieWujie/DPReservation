@@ -212,7 +212,7 @@
                     android:layout_below="@+id/details_praise_number"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="2dp"
-                    android:text="好 评"
+                    android:text="评 分"
                     android:textColor="#ffffff"
                     android:textSize="@dimen/normal_text"/>
 
@@ -367,18 +367,12 @@
                           android:layout_marginRight="5dp"
                           android:layout_marginLeft="5dp"
                           android:layout_height="wrap_content"/>
-                <LinearLayout android:layout_width="wrap_content"
-                              android:orientation="horizontal"
-                              android:visibility="gone"
-                              android:layout_alignParentRight="true"
-                              android:layout_height="wrap_content">
                     <TextView android:layout_width="wrap_content"
-                              android:text="查看全部"
+                              android:layout_alignParentRight="true"
+                              android:id="@+id/comment_count"
+                              android:layout_centerVertical="true"
+                              android:layout_marginRight="5dp"
                               android:layout_height="wrap_content"/>
-                    <ImageView android:layout_width="wrap_content"
-                               android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                               android:layout_height="wrap_content"/>
-                </LinearLayout>
             </RelativeLayout>
             <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                                        android:id="@+id/recyclerview"

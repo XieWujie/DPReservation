@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.View
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.navigation.findNavController
 import com.example.administrator.dpreservation.core.UserManage
 import com.example.administrator.dpreservation.utilities.Util
 import com.example.administrator.dpreservation.view.MainActivity
@@ -38,19 +39,12 @@ data class RegisterPresenter(
         }
     }
 
-    private fun firstLogin(view: View){
 
-    }
-
-    private fun checkPasswordSame(view: View):Boolean{
-        if (firstPassword != secondPassword){
-            Snackbar.make(view,"两次密码不一样", Snackbar.LENGTH_LONG).show()
-            return false
-        }
-        return true
-    }
     private fun checkMailBox(view: View):Boolean{
 
         return true
+    }
+    fun onBackPress(view: View){
+        view.findNavController().navigateUp()
     }
 }

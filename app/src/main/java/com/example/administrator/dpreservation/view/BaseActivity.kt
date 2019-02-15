@@ -12,14 +12,26 @@ import com.example.administrator.dpreservation.utilities.Util
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Util.setStatusBar(this,Color.WHITE)
     }
 
-     protected fun setActionBar(toolbar: Toolbar){
+     protected fun setWhiteBar(toolbar: Toolbar){
          setSupportActionBar(toolbar)
+         Util.setStatusBar(this,Color.WHITE)
          supportActionBar?.setDisplayHomeAsUpEnabled(true)
          supportActionBar?.setHomeButtonEnabled(true)
-         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_36dp)
+         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_black_back)
+         toolbar.setNavigationOnClickListener {
+             onBackPressed()
+         }
+     }
+
+     protected fun setBlueBar(toolbar: Toolbar){
+         setSupportActionBar(toolbar)
+         Util.setStatusBar(this,resources.getColor(R.color.blue_toolbar))
+         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+         supportActionBar?.setHomeButtonEnabled(true)
+         toolbar.setTitleTextColor(Color.WHITE)
+         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_white_back)
          toolbar.setNavigationOnClickListener {
              onBackPressed()
          }

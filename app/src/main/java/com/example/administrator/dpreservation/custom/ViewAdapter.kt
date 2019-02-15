@@ -1,5 +1,6 @@
 package com.example.administrator.dpreservation.custom
 
+import android.text.format.DateUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -44,7 +45,12 @@ class ViewAdapter{
         @JvmStatic
         @BindingAdapter("setPraise")
         fun setPraise(view: TextView,content:Float){
-            view.text = "${content.toString()} 分"
+           view.text =  if (content == null ){
+              "还没有评价"
+            }else{
+                val score = Math.round(content*10)/10.0
+               "$score 分"
+            }
         }
 
         @JvmStatic
@@ -72,15 +78,25 @@ class ViewAdapter{
         }
 
 
-        const val a = 8*3600000
+        const val a = 3600000
+        var lastTime = 0L
         @JvmStatic
         @BindingAdapter("time")
         fun setTime(view: TextView, timeStamp:Long){
-            val today = Date()
-            val d = Date(timeStamp)
-            val f = SimpleDateFormat("MM-dd HH:mm")
-            val s = f.format(d)
-            view.text = s
+            if (timeStamp - lastTime > a) {
+                lastTime = timeStamp
+                val d = Date(timeStamp)
+                if (DateUtils.isToday(timeStamp)) {
+                    val c = if (GregorianCalendar()[GregorianCalendar.AM_PM] == 0) "上午" else "下午"
+                    val f = SimpleDateFormat("hh:mm:ss")
+                    val s = f.format(d)
+                    view.text = "$c $s"
+                } else {
+                    val f = SimpleDateFormat("MM-dd HH:mm")
+                    val s = f.format(d)
+                    view.text = s
+                }
+            }
         }
 
         @JvmStatic

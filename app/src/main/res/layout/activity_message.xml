@@ -8,8 +8,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".view.MessageActivity">
-    <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" style="@style/toolbar_style"
-                                       app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+    <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" style="@style/toolbar_blue"
+                                       app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </androidx.appcompat.widget.Toolbar>
 
 

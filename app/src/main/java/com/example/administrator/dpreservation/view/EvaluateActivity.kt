@@ -1,6 +1,5 @@
 package com.example.administrator.dpreservation.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.administrator.dpreservation.R
@@ -17,7 +16,7 @@ class EvaluateActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_evaluate)
-        setActionBar(binding.toolbar)
+        setBlueBar(binding.toolbar)
         setTitle("发布评论")
         sendEvaluationEvent()
         binding.ratingBar2.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->

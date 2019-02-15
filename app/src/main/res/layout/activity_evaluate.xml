@@ -8,12 +8,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".view.EvaluateActivity">
-    <androidx.appcompat.widget.Toolbar style="@style/toolbar_style" android:id="@+id/toolbar">
+    <androidx.appcompat.widget.Toolbar style="@style/toolbar_blue" android:id="@+id/toolbar">
         <TextView android:layout_width="wrap_content"
                   android:text="发布"
                   android:gravity="center_vertical"
                   android:layout_marginRight="5dp"
                   android:textSize="16sp"
+                  android:textColor="#ffffff"
                   android:id="@+id/send_evaluation"
                   android:layout_gravity="right"
                   android:layout_height="match_parent"/>
@@ -24,6 +25,7 @@
         <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:rating="5"
                 android:id="@+id/ratingBar2" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +33,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.156"
                 app:layout_constraintVertical_bias="0.0"/>
         <TextView
-                android:text="TextView"
+                android:text="非常好"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"

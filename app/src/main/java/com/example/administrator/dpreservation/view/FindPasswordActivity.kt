@@ -16,12 +16,8 @@ class FindPasswordActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_find_password)
-        setSupportActionBar(binding.findToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_black_36dp)
+        setBlueBar(binding.findToolbar)
         binding.presenter = FindPasswordPresenter("")
-        Util.setStatusBar(this,resources.getColor(R.color.blue_toolbar))
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

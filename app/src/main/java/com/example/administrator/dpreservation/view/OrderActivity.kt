@@ -1,8 +1,6 @@
 package com.example.administrator.dpreservation.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.UserManager
 import android.view.MenuItem
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
@@ -14,9 +12,7 @@ import com.example.administrator.dpreservation.core.UserManage
 import com.example.administrator.dpreservation.databinding.ActivityOrderBinding
 import com.example.administrator.dpreservation.utilities.ALL
 import com.example.administrator.dpreservation.utilities.COMPLETE
-import com.example.administrator.dpreservation.utilities.NOT_EVALUATION
 import com.example.administrator.dpreservation.utilities.Util
-import java.util.*
 import kotlin.collections.ArrayList
 
 class OrderActivity : BaseActivity(),ViewPager.OnPageChangeListener{
@@ -68,7 +64,7 @@ class OrderActivity : BaseActivity(),ViewPager.OnPageChangeListener{
                 Util.log(window.decorView,"网络请求订单失败")
             }
         }
-        setActionBar(binding.toolbar)
+        setWhiteBar(binding.toolbar)
         layoutParams = binding.tab.layoutParams as LinearLayout.LayoutParams
         val tabWidth = layoutParams.width
         displayWidth = windowManager.defaultDisplay.width

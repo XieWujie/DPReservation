@@ -43,13 +43,19 @@ class DoctorDetailFragment:Fragment(){
 
         }
         val adapter = EvaluationAdapter()
-        model.getScore(doctor.id).observe(this, Observer {
-            binding.detailsPraiseNumber.text = "$it 分"
+        model.getScore(doctor.id).observe(this, Observer {content->
+            binding.detailsPraiseNumber.text =  if (content == null ){
+            "0.0"
+        }else{
+            val score = Math.round(content*10)/10.0
+            "$score 分"
+        }
         })
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerview.adapter = adapter
         model.getDoctorEvaluation(doctor.id).observe(this, Observer {
             adapter.submitList(it)
+            binding.commentCount.text = "${it.size}条"
         })
     }
 }

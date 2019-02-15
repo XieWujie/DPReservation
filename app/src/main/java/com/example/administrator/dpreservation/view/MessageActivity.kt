@@ -1,7 +1,5 @@
 package com.example.administrator.dpreservation.view
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -19,7 +17,7 @@ class MessageActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding =  DataBindingUtil.setContentView<ActivityMessageBinding>(this,R.layout.activity_message)
-        setActionBar(binding.toolbar)
+        setBlueBar(binding.toolbar)
         setTitle("消息")
         navController = findNavController(R.id.m_nav)
         binding.toolbar.setNavigationOnClickListener {

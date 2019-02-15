@@ -47,7 +47,7 @@ abstract class AppDatabase:RoomDatabase(){
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                     }
-                }).build()
+                }).allowMainThreadQueries().build()
         }
     }
 }

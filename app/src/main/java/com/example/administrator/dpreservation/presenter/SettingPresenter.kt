@@ -8,9 +8,11 @@ import androidx.navigation.findNavController
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.core.MessageManage
 import com.example.administrator.dpreservation.core.UserManage
+import com.example.administrator.dpreservation.data.AppDatabase
 import com.example.administrator.dpreservation.data.cache.GlideCacheUtil
 import com.example.administrator.dpreservation.data.user.UserRepository
 import com.example.administrator.dpreservation.utilities.Util
+import com.example.administrator.dpreservation.utilities.runOnNewThread
 import com.example.administrator.dpreservation.view.MainActivity
 
 class SettingPresenter{
@@ -59,9 +61,12 @@ class SettingPresenter{
     }
 
     fun logout(view: View){
-        UserManage?.logout()
-        MessageManage?.logout()
-        val intent = Intent(view.context,MainActivity::class.java)
-        view.context.startActivity(intent)
+        runOnNewThread {
+            AppDatabase.getInstance(view.context).clearAllTables()
+            val intent = Intent(view.context,MainActivity::class.java)
+            UserManage?.logout()
+             MessageManage?.logout()
+            view.context.startActivity(intent)
+        }
     }
 }

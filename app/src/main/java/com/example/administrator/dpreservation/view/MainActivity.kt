@@ -2,6 +2,7 @@ package com.example.administrator.dpreservation.view
 
 import android.app.SearchManager
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
@@ -80,6 +81,7 @@ class MainActivity : BaseActivity() , LocationSource, AMapLocationListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_home_black_18dp)
+        Util.setStatusBar(this,Color.WHITE)
         val nearRcView = binding.nearRcView
         val manage = LinearLayoutManager(this)
         nearRcView.layoutManager = manage
