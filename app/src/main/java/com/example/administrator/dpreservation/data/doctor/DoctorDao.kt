@@ -21,4 +21,7 @@ interface DoctorDao{
 
     @Query("SELECT * FROM doctor WHERE isAttention = :isAttention")
     fun getAttention(isAttention:Boolean = true):DataSource.Factory<Int,Doctor>
+
+    @Query("SElECT * FROM doctor WHERE name LIKE :keyword")
+    fun queryByKeyword(keyword:String):DataSource.Factory<Int,Doctor>
 }

@@ -91,30 +91,20 @@
                 android:layout_toRightOf="@id/details_id_image"
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="5dp"
-                android:text="身份认证"
+                android:text="医生认证: "
                 android:textSize="@dimen/normal_text"
                 android:textColor="#ffffff"/>
 
-        <ImageView
-                android:id="@+id/details_doc_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/details_seniority"
-                android:layout_toRightOf="@+id/details_id_text"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/details_qualify_doc"
-                android:scaleType="fitCenter"/>
 
         <TextView
                 android:id="@+id/details_doc_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/details_seniority"
-                android:layout_toRightOf="@id/details_doc_image"
+                android:layout_toRightOf="@id/details_id_text"
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="2dp"
-                android:text="医生认证"
+                android:text="未认证"
                 android:textSize="@dimen/normal_text"
                 android:textColor="#ffffff"/>
 
@@ -315,7 +305,7 @@
             <LinearLayout
                     android:id="@+id/details_address_linear"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_below="@+id/details_linear"
                     android:background="@drawable/details_linearlayout_line">

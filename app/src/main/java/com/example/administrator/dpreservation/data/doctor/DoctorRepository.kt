@@ -7,6 +7,8 @@ class DoctorRepository private constructor(private val doctorDao: DoctorDao){
 
      fun getNearDoctor(city:String,district:String,street:String) = doctorDao.getNearDoctor(city,district,street)
 
+    fun queryByKeyword(keyword:String) = doctorDao.queryByKeyword(keyword)
+
     fun getAttention() = doctorDao.getAttention()
 
      fun addDoctor(list: List<Doctor>){

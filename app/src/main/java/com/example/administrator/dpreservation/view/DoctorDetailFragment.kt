@@ -36,6 +36,9 @@ class DoctorDetailFragment:Fragment(){
     }
 
     fun init(doctor:Doctor){
+        if (doctor.doctorCertification){
+            binding.detailsDocText.text = "已认证"
+        }
         EvaluateManager.findDoctorEvaluation(requireContext(),doctor.id){
 
         }

@@ -1,10 +1,12 @@
 package com.example.administrator.dpreservation.view
 
+import android.app.SearchManager
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
+import androidx.core.view.MenuItemCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -143,7 +145,7 @@ class MainActivity : BaseActivity() , LocationSource, AMapLocationListener {
                     nearAdapter.submitList(it)
                     initDoctorMarker(it)
                 })
-                false
+                isLocate = true
             }
             UserManage.position = p
             binding.position = p
@@ -176,6 +178,10 @@ class MainActivity : BaseActivity() , LocationSource, AMapLocationListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
+        val item = menu!!.findItem(R.id.search)
+        item.setOnMenuItemClickListener {
+            onSearchRequested()
+        }
         return true
     }
 
@@ -188,5 +194,19 @@ class MainActivity : BaseActivity() , LocationSource, AMapLocationListener {
             android.R.id.home->binding.drawlayout.openDrawer(GravityCompat.START)
         }
         return true
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        setIntent(intent)
+        handlerSearch()
+    }
+    private fun handlerSearch(){
+        if (Intent.ACTION_SEARCH == intent.action){
+            val query = intent.getStringExtra(SearchManager.QUERY)
+            val keyword = "%$query%"
+            model.queryByKeyword(keyword).observe(this, Observer {
+                nearAdapter.submitList(it)
+            })
+        }
     }
 }

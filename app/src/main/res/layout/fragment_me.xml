@@ -60,51 +60,10 @@
     <View android:layout_width="match_parent"
           android:background="@color/dividingLine"
           android:layout_height="1dp"/>
-    <RelativeLayout android:layout_width="match_parent"
-                    android:background="@color/meItemBackground"
-                    android:onClick="@{presenter::clickWallet}"
-                    android:layout_height="50dp">
-        <TextView android:layout_width="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="10dp"
-                  android:textColor="@color/meItem"
-                  android:text="钱包"
-                  android:layout_height="wrap_content"/>
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"
-                   android:layout_marginRight="5dp"
-                   android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                   android:layout_height="wrap_content"/>
-    </RelativeLayout>
-    <View android:layout_width="match_parent"
-          android:background="@color/dividingLine"
-          android:layout_height="1dp"/>
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:background="@color/meItemBackground"
-                    android:onClick="@{presenter::clickSafety}"
-                    android:layout_height="50dp">
-        <TextView android:layout_width="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="10dp"
-                  android:textColor="@color/meItem"
-                  android:text="安全"
-                  android:layout_height="wrap_content"/>
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"
-                   android:layout_marginRight="5dp"
-                   android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-                   android:layout_height="wrap_content"/>
-    </RelativeLayout>
-    <View android:layout_width="match_parent"
-          android:background="@color/dividingLine"
-          android:layout_height="1dp"/>
-    <RelativeLayout android:layout_width="match_parent"
-                    android:background="@color/meItemBackground"
-                    android:onClick="@{presenter::clickCustomer}"
-                    android:layout_height="50dp">
+
+    <RelativeLayout style="@style/me_item_style"
+                    android:onClick="@{presenter::clickCustomer}">
         <TextView android:layout_width="wrap_content"
                   android:layout_centerVertical="true"
                   android:layout_marginLeft="10dp"
@@ -121,10 +80,8 @@
     <View android:layout_width="match_parent"
           android:background="@color/dividingLine"
           android:layout_height="1dp"/>
-    <RelativeLayout android:layout_width="match_parent"
-                    android:background="@color/meItemBackground"
-                    android:onClick="@{presenter::clickSetting}"
-                    android:layout_height="50dp">
+    <RelativeLayout style="@style/me_item_style"
+                    android:onClick="@{presenter::clickSetting}">
         <TextView android:layout_width="wrap_content"
                   android:layout_centerVertical="true"
                   android:layout_marginLeft="10dp"

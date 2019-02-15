@@ -1,5 +1,6 @@
 package com.example.administrator.dpreservation.view
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
@@ -11,7 +12,7 @@ import com.example.administrator.dpreservation.utilities.Util
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Util.setStatusBar(this)
+        Util.setStatusBar(this,Color.WHITE)
     }
 
      protected fun setActionBar(toolbar: Toolbar){

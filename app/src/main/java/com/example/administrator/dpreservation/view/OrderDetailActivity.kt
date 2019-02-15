@@ -3,6 +3,7 @@ package com.example.administrator.dpreservation.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.core.OrderManage

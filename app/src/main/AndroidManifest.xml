@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
             android:name=".App"
@@ -62,8 +63,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".view.MeActivity">
-        </activity>
         <activity android:name=".view.OrderActivity">
         </activity>
         <activity android:name=".view.WalletActivity">
@@ -77,6 +76,13 @@
         <activity
                 android:name=".view.MainActivity"
                 android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.app.searchable"
+                    android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".view.MessageActivity">
         </activity>

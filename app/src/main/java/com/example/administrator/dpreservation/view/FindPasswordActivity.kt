@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.databinding.ActivityFindPasswordBinding
 import com.example.administrator.dpreservation.presenter.FindPasswordPresenter
+import com.example.administrator.dpreservation.utilities.Util
 
 class FindPasswordActivity : BaseActivity() {
 
@@ -20,6 +21,7 @@ class FindPasswordActivity : BaseActivity() {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_black_36dp)
         binding.presenter = FindPasswordPresenter("")
+        Util.setStatusBar(this,resources.getColor(R.color.blue_toolbar))
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

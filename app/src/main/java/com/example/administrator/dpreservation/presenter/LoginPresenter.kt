@@ -41,7 +41,7 @@ class LoginPresenter(
             progressDialog?.dismiss()
             view.isClickable = true
             if (it != null){
-                MessageManage.owner = it
+                MessageManage.init(view.context,it)
                 Util.toActivity<MainActivity>(view.context)
             }
         }

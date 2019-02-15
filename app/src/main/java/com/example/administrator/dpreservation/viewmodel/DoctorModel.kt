@@ -18,4 +18,6 @@ class DoctorModel internal constructor(private val repository: DoctorRepository)
     fun getNearClinic(city:String,district:String,street:String) = LivePagedListBuilder<Int,Doctor>(repository.getNearDoctor(city,district,street),config).build()
 
     val attention = LivePagedListBuilder<Int,Doctor>(repository.getAttention(),config).build()
+
+    fun queryByKeyword(keyword:String) = LivePagedListBuilder<Int,Doctor>(repository.queryByKeyword(keyword),config).build()
 }

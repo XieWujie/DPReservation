@@ -202,11 +202,6 @@ object MessageManage{
     }
 
 
-    fun freshMessage() {
-        fetchNewMessage()
-    }
-
-
     fun fetchNewMessage() {
         getClient { client->
             val query = client?.conversationsQuery

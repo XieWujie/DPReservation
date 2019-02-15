@@ -133,12 +133,12 @@ object Util{
         }
     }
 
-    fun setStatusBar(activity: Activity) {
+    fun setStatusBar(activity: Activity,color:Int) {
         if (Build.VERSION.SDK_INT >= 21) {
             val window = activity.window
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.WHITE
+            window.statusBarColor = color
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
