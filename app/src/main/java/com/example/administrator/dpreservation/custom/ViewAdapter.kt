@@ -43,17 +43,6 @@ class ViewAdapter{
         }
 
         @JvmStatic
-        @BindingAdapter("setPraise")
-        fun setPraise(view: TextView,content:Float){
-           view.text =  if (content == null ){
-              "还没有评价"
-            }else{
-                val score = Math.round(content*10)/10.0
-               "$score 分"
-            }
-        }
-
-        @JvmStatic
         @BindingAdapter("orderTime")
         fun setOrderTime(view: TextView,timeStamp: Long){
             val d = Date(timeStamp)
@@ -99,13 +88,22 @@ class ViewAdapter{
             }
         }
 
+
+
         @JvmStatic
         @BindingAdapter("message_list_time")
         fun setMessageListTime(view: TextView, timeStamp: Long){
-            val d = Date(timeStamp+ a)
-            val f = SimpleDateFormat("dd日 HH:mm:ss")
-            val s = f.format(d)
-            view.text = s
+            val d = Date(timeStamp)
+            if (DateUtils.isToday(timeStamp)) {
+                val c = if (GregorianCalendar()[GregorianCalendar.AM_PM] == 0) "上午" else "下午"
+                val f = SimpleDateFormat("hh:mm:ss")
+                val s = f.format(d)
+                view.text = "$c $s"
+            } else {
+                val f = SimpleDateFormat("MM-dd HH:mm")
+                val s = f.format(d)
+                view.text = s
+            }
         }
 
         @JvmStatic
@@ -127,6 +125,5 @@ class ViewAdapter{
                 view.text = time.toString()
             }
         }
-
     }
 }

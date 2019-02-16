@@ -2,6 +2,9 @@ package com.example.administrator.dpreservation.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import com.example.administrator.dpreservation.R
 import com.example.administrator.dpreservation.core.OrderManage
@@ -15,11 +18,14 @@ import java.util.*
 class OrderDetailActivity : BaseActivity() {
 
     private lateinit var binding:ActivityOrderDetailBinding
+    protected var menu: Menu? = null
+    private var order:Order? = null
+    val CANCEL = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_order_detail)
-        setWhiteBar(binding.toolbar)
+        setBlueBar(binding.toolbar)
         val order = intent.getSerializableExtra("order")
         if (order is Order){
             val newOrder =  if (order.state == NOT_START&&Util.getCurrentTimeStamp()>order.orderTime){
@@ -27,8 +33,8 @@ class OrderDetailActivity : BaseActivity() {
             }else{
                 order
             }
+            this.order = newOrder
             binding.order = newOrder
-            eventHandle(newOrder)
             initSchedule(newOrder)
         }
         setTitle("订单详情")
@@ -50,51 +56,52 @@ class OrderDetailActivity : BaseActivity() {
         }
     }
 
-    fun eventHandle(order: Order){
-        binding.sendMessage.setOnClickListener {
-            val intent = Intent(this,ChatActivity::class.java)
-            intent.putExtra(CONVERSATION__NAME,order.doctorName)
-            intent.putExtra(CONVERSATION_ID,order.doctorId)
-            intent.putExtra(AVATAR,order.doctorName)
-            startActivity(intent)
-        }
-        binding.toolbar.setNavigationOnClickListener {
-            finish()
-        }
-        when(order.state){
-            COMPLETE->{
-                binding.bottomLayout.removeView(binding.cancel)
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
+        MenuInflater(this).inflate(R.menu.order_detail_menu,menu)
+        when(order?.state){
+            NOT_GENERATED, NOT_START->{
+                menu?.add(1,CANCEL,2,"取消订单")
             }
-            NOT_EVALUATION->{
-                binding.cancel.text = "评价"
-                binding.cancel.setOnClickListener {
-                    val intent = Intent(this,EvaluateActivity::class.java)
-                    intent.putExtra("order",order)
-                    startActivity(intent)
-                }
+            STARTING->{
+                menu?.add(1, STARTING,2,"支付")
             }
-            NOT_START, NOT_GENERATED->{
-                binding.cancel.text = "取消订单"
-                binding.cancel.setOnClickListener {
-                    val dialog = Util.createProgressDialog(this)
-                    dialog.show()
-                    OrderManage.cancelOrder(order) {
-                        dialog.dismiss()
-                        if (it == null) {
-                            Util.log(binding.root, "取消订单成功")
-                            finish()
-                        } else {
-                            Util.log(binding.root, "取消订单失败")
-                        }
+            NOT_EVALUATION->menu?.add(1, NOT_EVALUATION,2,"评价")
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (order == null)return false
+        when(item?.itemId){
+            R.id.send_message->{
+                val intent = Intent(this,ChatActivity::class.java)
+                intent.putExtra(CONVERSATION__NAME,order!!.doctorName)
+                intent.putExtra(CONVERSATION_ID,order!!.doctorId)
+                intent.putExtra(AVATAR,order!!.doctorName)
+                startActivity(intent)
+            }
+            CANCEL->{
+                val dialog = Util.createProgressDialog(this)
+                dialog.show()
+                OrderManage.cancelOrder(order!!) {
+                    dialog.dismiss()
+                    if (it == null) {
+                        Util.log(binding.root, "取消订单成功")
+                        finish()
+                    } else {
+                        Util.log(binding.root, "取消订单失败")
                     }
                 }
             }
-            STARTING->{
-                binding.cancel.text = "支付"
-                binding.cancel.setOnClickListener {
-                    Util.pay(binding.root)
-                }
+            NOT_EVALUATION->{
+                val intent = Intent(this,EvaluateActivity::class.java)
+                intent.putExtra("order",order)
+                startActivity(intent)
             }
+            STARTING->Util.pay(binding.root)
         }
+        return true
     }
 }

@@ -21,7 +21,7 @@ class DoctorActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_doctor)
-        setWhiteBar(binding.toolbar)
+        setBlueBar(binding.toolbar)
         setTitle("医生详情")
         navController = findNavController(R.id.doc_nav)
         binding.sendEvaluation.setOnClickListener {

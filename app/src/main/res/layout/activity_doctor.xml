@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         tools:context=".view.DoctorActivity">
 
-    <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" style="@style/toolbar_style"/>
+    <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar" style="@style/toolbar_blue"/>
     <fragment
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"

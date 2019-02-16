@@ -16,7 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="245dp"
                 android:scaleType="fitCenter"
-                android:background="@drawable/details_image"/>
+                android:background="@color/blue_toolbar"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/details_head"
@@ -201,7 +201,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
-                    setPraise="@{doctor.praise}"
                     android:textSize="@dimen/normal_text"
                     android:textColor="#ffffff"/>
 
